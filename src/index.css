@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-soviet-offwhite text-zinc-800 antialiased overflow-x-hidden;
+    font-family: 'Be Vietnam Pro', 'Inter', system-ui, -apple-system, sans-serif;
+  }
+}
+
+@layer components {
+  .light-gradient {
+    background: linear-gradient(135deg, #ffffff 0%, #fff1f1 100%);
+  }
+  
+  .soviet-card {
+    @apply bg-white border border-zinc-200 shadow-sm transition-all duration-300;
+  }
+  
+  .soviet-card-red {
+    @apply soviet-card border-soviet-red/30 hover:border-soviet-red hover:shadow-red-glow;
+  }
+
+  .text-glow-red {
+    text-shadow: 0 0 10px rgba(0, 128, 1, 0.2);
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-zinc-50;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-zinc-300 rounded-full hover:bg-soviet-red/50;
+}
