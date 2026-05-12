@@ -6,20 +6,24 @@ const items = [
   {
     icon: Users2,
     title: 'Giai cấp trong lòng dân tộc',
+    id: 'theory-revolution',
     desc: 'Mỗi dân tộc đều có nhiều giai cấp và tầng lớp; giai cấp không tồn tại tách rời cộng đồng dân tộc.'
   },
   {
     icon: Scale,
     title: 'Vừa thống nhất vừa mâu thuẫn',
+    id: 'theory-revolution',
     desc: 'Khi chống xâm lược thì lợi ích dân tộc là ưu tiên; khi hòa bình, khác biệt lợi ích giai cấp nổi bật hơn.'
   },
   {
     icon: ShieldCheck,
     title: 'Quan điểm Mác - Lênin',
+    id: 'theory-revolution',
     desc: 'Vấn đề dân tộc chịu ảnh hưởng bởi vấn đề giai cấp; chính sách dân tộc cần xuất phát từ lợi ích xã hội lâu dài.'
   },
   {
     icon: Landmark,
+    id: 'theory-revolution',
     title: 'Cách mạng Việt Nam',
     desc: 'Hồ Chí Minh kết hợp giải phóng dân tộc với giải phóng giai cấp để giải quyết đồng thời nhiệm vụ lịch sử.'
   }
@@ -32,15 +36,27 @@ const DialecticalCategories = () => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          className="text-center mb-16"
+          className="mb-16"
         >
-          <h2 className="text-4xl md:text-6xl font-black text-soviet-red mb-6 uppercase tracking-tighter italic">
-            Quan Hệ Giai Cấp Và Dân Tộc
-          </h2>
-          <div className="h-2 w-24 bg-soviet-gold mx-auto mb-8 rounded-full" />
-          <p className="text-lg text-zinc-500 max-w-3xl mx-auto font-medium">
-            Giai cấp và dân tộc vừa gắn bó chặt chẽ, vừa có những thời điểm mâu thuẫn tùy theo điều kiện lịch sử cụ thể.
-          </p>
+          <div className="grid md:grid-cols-[1.1fr_0.9fr] gap-10 items-center">
+            <div className="text-center md:text-left">
+              <h2 id="theory-relationship" className="text-4xl md:text-6xl font-black text-soviet-red mb-6 uppercase tracking-tighter italic">
+                Quan Hệ Giai Cấp Và Dân Tộc
+              </h2>
+              <div className="h-2 w-24 bg-soviet-gold mx-auto md:mx-0 mb-8 rounded-full" />
+              <p className="text-lg text-zinc-500 max-w-3xl md:max-w-none font-medium">
+                Giai cấp và dân tộc vừa gắn bó chặt chẽ, vừa có những thời điểm mâu thuẫn tùy theo điều kiện lịch sử cụ thể.
+              </p>
+            </div>
+            <div className="w-full">
+              <img
+                src="/image/NgauNhienTatNhien.jpg"
+                alt="Minh hoa quan he giai cap dan toc"
+                className="w-full rounded-3xl border border-zinc-200 shadow-lg object-cover aspect-[4/3]"
+                loading="lazy"
+              />
+            </div>
+          </div>
         </motion.div>
 
         <div className="grid md:grid-cols-2 gap-8">
@@ -58,12 +74,20 @@ const DialecticalCategories = () => {
                 <div className="w-14 h-14 rounded-2xl bg-soviet-red/10 text-soviet-red flex items-center justify-center mb-6">
                   <Icon className="w-7 h-7" />
                 </div>
-                <h3 className="text-2xl font-black text-zinc-800 mb-4 uppercase tracking-tight">
+                <h3 id={item.id} className="text-2xl font-black text-zinc-800 mb-4 uppercase tracking-tight">
                   {item.title}
                 </h3>
                 <p className="text-zinc-600 text-sm leading-relaxed font-medium">
                   {item.desc}
                 </p>
+                {item.id === 'theory-revolution' && (
+                  <img
+                    src="/image/NgauNhienTatNhien.jpg"
+                    alt="Minh hoa cach mang Viet Nam"
+                    className="mt-6 w-full rounded-2xl border border-zinc-200 shadow-md object-cover aspect-[4/3]"
+                    loading="lazy"
+                  />
+                )}
               </motion.div>
             );
           })}

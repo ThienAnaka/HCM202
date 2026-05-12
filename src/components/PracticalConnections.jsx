@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import { Shield, Hammer, SunMedium } from 'lucide-react';
 
@@ -39,6 +39,14 @@ const PracticalConnections = () => {
           <p className="text-lg text-zinc-600 max-w-2xl mx-auto font-medium">
             Phần này cho thấy cách vận dụng quan hệ giai cấp - dân tộc vào phân tích xã hội và hoạch định chính sách.
           </p>
+          <div className="mt-10 max-w-3xl mx-auto">
+            <img
+              src="/image/NguyenNhan.jpg"
+              alt="Minh hoa y nghia thuc tien"
+              className="w-full rounded border border-zinc-200 shadow-lg object-cover aspect-[16/9]"
+              loading="lazy"
+            />
+          </div>
         </motion.div>
         <div className="grid md:grid-cols-3 gap-6">
           {examples.map((item, index) => {

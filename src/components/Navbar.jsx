@@ -33,7 +33,7 @@ const Navbar = () => {
           to="/" 
           className={`font-black tracking-[0.3em] uppercase text-sm transition-all duration-500 ${scrolled ? 'text-soviet-red scale-110' : 'text-zinc-800'}`}
         >
-          Giai Cấp <span className="text-soviet-orange">&amp; Dân Tộc</span>
+          TT Hồ Chí Minh <span className="text-soviet-orange">về đạo đức</span>
         </Link>
         
         <div className="hidden md:flex gap-10">

@@ -20,7 +20,8 @@ const DialecticalPairs = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-5xl font-bold text-zinc-900 mb-6 tracking-tight">Các Ý Chính Của Bài Học</h2>
+          <h2 className="text-3xl md:text-5xl font-bold text-zinc-
+                         900 mb-6 tracking-tight">Các Ý Chính Của Bài Học</h2>
           <p className="text-zinc-600 max-w-2xl mx-auto">Các khái niệm trọng tâm giúp hệ thống hóa nội dung giai cấp và dân tộc.</p>
         </motion.div>
 

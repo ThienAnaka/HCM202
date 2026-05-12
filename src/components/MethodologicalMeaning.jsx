@@ -28,13 +28,21 @@ const MethodologicalMeaning = () => {
           className="flex flex-col md:flex-row gap-16 items-center"
         >
           <div className="w-full md:w-1/2">
-            <h2 className="text-4xl md:text-6xl font-bold text-soviet-red mb-8 uppercase tracking-tighter">
+            <h2 id="theory-meaning" className="text-4xl md:text-6xl font-bold text-soviet-red mb-8 uppercase tracking-tighter">
               Ý Nghĩa
             </h2>
             <div className="h-2 w-24 bg-soviet-gold mb-8 shadow-sm" />
             <p className="text-xl text-zinc-600 leading-relaxed font-medium">
               Từ nội dung giai cấp và dân tộc có thể rút ra những định hướng quan trọng cho nhận thức và hành động thực tiễn.
             </p>
+            <div className="mt-10">
+              <img
+                src="/image/NgauNhienTatNhien.jpg"
+                alt="Minh hoa y nghia"
+                className="w-full rounded-3xl border border-zinc-200 shadow-lg object-cover aspect-[4/3]"
+                loading="lazy"
+              />
+            </div>
           </div>
           
           <div className="w-full md:w-1/2 space-y-6">

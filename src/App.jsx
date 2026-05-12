@@ -1,5 +1,5 @@
-import React from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import HeroSection from './components/HeroSection'
 import PresentationOverview from './components/PresentationOverview'
@@ -45,9 +45,31 @@ const HomePage = () => (
   </>
 )
 
+const ScrollToHash = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (!location.hash) return;
+
+    const targetId = location.hash.replace('#', '');
+    const target = document.getElementById(targetId);
+
+    if (!target) return;
+
+    const handle = window.setTimeout(() => {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 0);
+
+    return () => window.clearTimeout(handle);
+  }, [location]);
+
+  return null;
+};
+
 function App() {
   return (
     <BrowserRouter>
+      <ScrollToHash />
       <main className="bg-soviet-offwhite min-h-screen text-zinc-800">
         <FallingFlowers />
         <Navbar />

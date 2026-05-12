@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 
 const nodes = [
-  { id: 'class', label: 'Giai cấp', x: 25, y: 50, color: '#008001' },
-  { id: 'nation', label: 'Dân tộc', x: 75, y: 50, color: '#008001' },
+  { id: 'class', label: 'Nguyên tắc', x: 25, y: 50, color: '#008001' },
+  { id: 'nation', label: 'Phẩm chất', x: 75, y: 50, color: '#008001' },
   { id: 'definition', label: 'Định nghĩa', x: 50, y: 20, color: '#f59e0b' },
-  { id: 'origin', label: 'Nguồn gốc', x: 15, y: 78, color: '#f59e0b' },
-  { id: 'relation', label: 'Đạo Đức', x: 50, y: 78, color: '#f59e0b' },
+  { id: 'origin', label: 'Rèn luyện', x: 15, y: 78, color: '#f59e0b' },
+  { id: 'relation', label: 'Đời Sống Đạo Đức', x: 50, y: 78, color: '#f59e0b' },
   { id: 'meaning', label: 'Ý nghĩa', x: 85, y: 78, color: '#f59e0b' },
 ];
 

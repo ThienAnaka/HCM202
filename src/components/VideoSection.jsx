@@ -23,7 +23,7 @@ const VideoSection = () => {
             >
               <div className="bg-gradient-to-b from-soviet-red via-soviet-red to-soviet-gold rounded-lg shadow-2xl border-4 border-soviet-gold p-8 mb-4 max-w-xs mx-auto text-white">
                 <p className="text-4xl font-black">I</p>
-                <p className="text-sm font-bold uppercase tracking-[0.3em] mt-4">Giai cấp</p>
+                <p className="text-sm font-bold uppercase tracking-[0.3em] mt-4">Đạo Đức</p>
               </div>
               <p className="text-xl font-black text-soviet-red">Định nghĩa, đặc trưng, nguồn gốc</p>
             </motion.div>
@@ -35,12 +35,10 @@ const VideoSection = () => {
               className="bg-soviet-offwhite rounded-lg shadow-2xl p-12 border-4 border-soviet-gold"
             >
               <p className="text-3xl md:text-4xl font-black italic text-soviet-red mb-8 leading-relaxed">
-                "Giai cấp là những tập đoàn người lớn..."
+                "Tư tưởng của Hồ Chí Minh về đạo đức là hệ thống quan điểm về vai trò, phẩm chất..."
               </p>
               <p className="text-xl text-zinc-600 font-bold">— V. I. Lênin</p>
-              <p className="text-sm text-zinc-500 mt-6 italic">
-                Trọng tâm của phần mở đầu về giai cấp
-              </p>
+              
             </motion.div>
           </div>
         </motion.div>

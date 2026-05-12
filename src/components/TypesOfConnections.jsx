@@ -33,14 +33,26 @@ const TypesOfConnections = () => {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false }}
-          className="text-center mb-16"
+          className="mb-16"
         >
-          <h2 className="text-4xl md:text-6xl font-bold text-soviet-red mb-6">
-            Dân Tộc Là Gì?
-          </h2>
-          <p className="text-lg text-zinc-500 max-w-2xl mx-auto">
-            Phần này hệ thống hóa định nghĩa, hai nghĩa, đặc trưng và vai trò của dân tộc trong triết học Mác - Lênin.
-          </p>
+          <div className="grid md:grid-cols-[1.1fr_0.9fr] gap-10 items-center">
+            <div className="text-center md:text-left">
+              <h2 id="theory-nation" className="text-4xl md:text-6xl font-bold text-soviet-red mb-6">
+                Dân Tộc Là Gì?
+              </h2>
+              <p className="text-lg text-zinc-500 max-w-2xl md:max-w-none">
+                Phần này hệ thống hóa định nghĩa, hai nghĩa, đặc trưng và vai trò của dân tộc trong triết học Mác - Lênin.
+              </p>
+            </div>
+            <div className="w-full">
+              <img
+                src="/image/NgauNhienTatNhien.jpg"
+                alt="Minh hoa dan toc"
+                className="w-full rounded-3xl border border-zinc-200 shadow-lg object-cover aspect-[4/3]"
+                loading="lazy"
+              />
+            </div>
+          </div>
         </motion.div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">

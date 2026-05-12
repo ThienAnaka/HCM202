@@ -1,21 +1,23 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { Users, ListOrdered, BookOpen, Cpu, MessageSquare, PenTool, Terminal, Book } from 'lucide-react';
 
 const PresentationOverview = () => {
   const members = [
     { name: "Nguyễn Đức Thiên Ân", id: "SE182633" },
-    { name: "Nguyễn Phi Khanh", id: "SE183527" },
-    { name: "Hạ Cao Thanh Trúc", id: "SE180264" },
+    { name: "Nguyễn Minh Trí", id: "SE192645" },
+    { name: "Lý Trung Quân", id: "SE193346" },
+    { name: "Đỗ Quốc Bảo", id: "SE193803" },
     { name: "Trần Mạnh Tú", id: "SE181566" },
   ];
 
   const outline = [
-    { title: "Giai cấp là gì?", desc: "Định nghĩa của Lênin, đặc trưng, nguồn gốc và đấu tranh giai cấp." },
-    { title: "Dân tộc là gì?", desc: "Định nghĩa, hai nghĩa của dân tộc, đặc trưng và vai trò." },
-    { title: "Quan hệ giữa giai cấp và dân tộc", desc: "Mối quan hệ vừa thống nhất vừa mâu thuẫn trong xã hội." },
-    { title: "Trong cách mạng Việt Nam", desc: "Kết hợp giải phóng dân tộc với giải phóng giai cấp theo Hồ Chí Minh." },
-    { title: "Ý nghĩa và tóm tắt", desc: "Rút ra ý nghĩa nhận thức, thực tiễn và phần tóm tắt trọng tâm." },
+    { title: "Giai cấp là gì?", desc: "Định nghĩa của Lênin, đặc trưng, nguồn gốc và đấu tranh giai cấp.", href: "/#theory-class" },
+    { title: "Dân tộc là gì?", desc: "Định nghĩa, hai nghĩa của dân tộc, đặc trưng và vai trò.", href: "/#theory-nation" },
+    { title: "Quan hệ giữa giai cấp và dân tộc", desc: "Mối quan hệ vừa thống nhất vừa mâu thuẫn trong xã hội.", href: "/#theory-relationship" },
+    { title: "Trong cách mạng Việt Nam", desc: "Kết hợp giải phóng dân tộc với giải phóng giai cấp theo Hồ Chí Minh.", href: "/#theory-revolution" },
+    { title: "Ý nghĩa và tóm tắt", desc: "Rút ra ý nghĩa nhận thức, thực tiễn và phần tóm tắt trọng tâm.", href: "/#theory-meaning" },
   ];
 
   const tools = [
@@ -40,13 +42,13 @@ const PresentationOverview = () => {
           className="text-center mb-16"
         >
           <div className="inline-block px-4 py-1 rounded-full bg-soviet-red/10 text-soviet-red font-bold text-sm uppercase tracking-widest mb-4">
-            Môn học: Triết học Mác – Lênin
+            Môn học: Tư Tưởng Hồ Chí Minh
           </div>
           <h2 className="text-5xl md:text-7xl font-black mb-6 uppercase tracking-tighter italic text-soviet-red">
             Tổng quan <span className="text-zinc-800">Bài học</span>
           </h2>
           <p className="text-xl font-medium text-zinc-500 mb-8">
-            Chủ đề: <span className="text-zinc-900 font-bold underline decoration-soviet-red underline-offset-4">Giai cấp và dân tộc</span>
+            Chủ đề: <span className="text-zinc-900 font-bold underline decoration-soviet-red underline-offset-4">Tư Tưởng Hồ Chí Minh về đạo đức</span>
           </p>
           <div className="w-24 h-2 bg-soviet-red mx-auto mb-8" />
         </motion.div>
@@ -93,7 +95,16 @@ const PresentationOverview = () => {
                     <div className="absolute left-6 top-12 w-0.5 h-full bg-zinc-200" />
                   )}
                   <div className="pb-8">
-                    <h4 className="text-xl font-bold mb-2 group-hover:text-soviet-orange transition-colors uppercase text-zinc-800">{item.title}</h4>
+                    {item.href ? (
+                      <Link
+                        to={item.href}
+                        className="text-xl font-bold mb-2 group-hover:text-soviet-orange transition-colors uppercase text-zinc-800 inline-block"
+                      >
+                        {item.title}
+                      </Link>
+                    ) : (
+                      <h4 className="text-xl font-bold mb-2 group-hover:text-soviet-orange transition-colors uppercase text-zinc-800">{item.title}</h4>
+                    )}
                     <p className="text-zinc-500 leading-relaxed">{item.desc}</p>
                   </div>
                 </div>

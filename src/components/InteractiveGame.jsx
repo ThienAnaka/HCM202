@@ -56,19 +56,17 @@ const InteractiveGame = () => {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-6xl font-bold text-soviet-red mb-6 uppercase tracking-tight">
-            Thử Thách Quan Hệ
+            Thử Thách
           </h2>
           <p className="text-lg text-zinc-500 max-w-2xl mx-auto font-medium">
-            Hãy kết nối đúng nguyên nhân với kết quả trong chủ đề giai cấp và dân tộc.
+            Hãy kết nối đúng nguyên nhân với kết quả trong chủ đề này
           </p>
         </motion.div>
 
         <div className="grid md:grid-cols-2 gap-12 items-start">
           {/* Causes Column */}
           <div className="space-y-4">
-            <div className="text-center mb-8">
-              <span className="bg-soviet-red text-white px-6 py-2 rounded-full text-xs font-bold uppercase tracking-widest shadow-lg">Nguyên Nhân</span>
-            </div>
+            
             {initialItems.map((item) => (
               <motion.button
                 key={item.id}
@@ -97,9 +95,6 @@ const InteractiveGame = () => {
 
           {/* Effects Column */}
           <div className="space-y-4">
-            <div className="text-center mb-8">
-              <span className="bg-soviet-orange text-white px-6 py-2 rounded-full text-xs font-bold uppercase tracking-widest shadow-lg">Kết Quả</span>
-            </div>
             {shuffledEffects.map((item) => (
               <motion.button
                 key={item.id}
@@ -174,10 +169,10 @@ const InteractiveGame = () => {
               <div className="absolute top-0 left-0 w-full h-3 bg-gradient-to-r from-soviet-red via-soviet-gold to-soviet-red" />
               <h4 className="text-4xl font-black text-zinc-900 mb-6 uppercase tracking-tighter">Kết Nối Hoàn Tất</h4>
               <p className="text-soviet-red text-2xl italic font-serif leading-tight">
-                "Mỗi kết quả mới đều mở ra một điều kiện lịch sử mới cho xã hội."
+                "Người cách mạng phải có đạo đức cách mạng làm nền tảng."
               </p>
               <div className="mt-8 text-zinc-400 font-black uppercase tracking-[0.4em] text-xs">
-                — Giai cấp và dân tộc
+                — Hồ Chí Minh
               </div>
             </motion.div>
           )}

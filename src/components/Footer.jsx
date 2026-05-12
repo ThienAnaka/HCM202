@@ -13,7 +13,7 @@ const Footer = () => {
       >
         <blockquote className="text-4xl font-serif italic text-zinc-900 mb-16 relative inline-block">
           <span className="absolute -top-12 -left-12 text-9xl text-soviet-red opacity-10">"</span>
-          Hiểu giai cấp để hiểu xã hội, hiểu dân tộc để hiểu cộng đồng.
+          Có tài mà không có đức thì là người vô dụng.
           <span className="absolute -bottom-16 -right-12 text-9xl text-soviet-red opacity-10">"</span>
         </blockquote>
         
@@ -23,8 +23,8 @@ const Footer = () => {
               <span className="text-white font-black text-xl">M</span>
             </div>
             <div className="text-left">
-              <div className="text-soviet-red font-black text-sm uppercase tracking-widest">Giai Cấp &amp; Dân Tộc</div>
-              <div className="text-zinc-400 text-[10px] font-bold uppercase tracking-[0.2em]">Học thuyết Mác - Lênin &copy; 2026</div>
+              <div className="text-soviet-red font-black text-sm uppercase tracking-widest">TT HCM về Đạo Đức</div>
+              <div className="text-zinc-400 text-[10px] font-bold uppercase tracking-[0.2em]">Tư tưởng Hồ Chí Minh &copy; 2026</div>
             </div>
           </div>
           
@@ -46,7 +46,7 @@ const Footer = () => {
           </div>
           
           <div className="px-6 py-2 bg-soviet-gold text-white font-black text-[10px] uppercase tracking-[0.3em] rounded-full shadow-md">
-            Quan hệ xã hội và cộng đồng
+            Rèn luyện đạo đức của con người
           </div>
         </div>
       </motion.div>

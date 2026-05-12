@@ -33,12 +33,24 @@ const TheorySection = () => {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="mb-16"
         >
-          <h2 className="text-3xl md:text-5xl font-bold text-zinc-900 mb-6 tracking-tight">Giai Cấp Là Gì?</h2>
-          <p className="text-zinc-600 max-w-2xl mx-auto text-lg leading-relaxed">
-            Giai cấp là phạm trù trung tâm để nhận diện phân hóa xã hội và các quan hệ lợi ích trong phương thức sản xuất.
-          </p>
+          <div className="grid md:grid-cols-[1.1fr_0.9fr] gap-10 items-center">
+            <div className="text-center md:text-left">
+              <h2 id="theory-class" className="text-3xl md:text-5xl font-bold text-zinc-900 mb-6 tracking-tight">Giai Cấp Là Gì?</h2>
+              <p className="text-zinc-600 max-w-2xl md:max-w-none text-lg leading-relaxed">
+                Giai cấp là phạm trù trung tâm để nhận diện phân hóa xã hội và các quan hệ lợi ích trong phương thức sản xuất.
+              </p>
+            </div>
+            <div className="w-full">
+              <img
+                src="/image/NgauNhienTatNhien.jpg"
+                alt="Minh hoa giai cap"
+                className="w-full rounded-3xl border border-zinc-200 shadow-lg object-cover aspect-[4/3]"
+                loading="lazy"
+              />
+            </div>
+          </div>
         </motion.div>
 
         <div className="grid md:grid-cols-3 gap-8">
