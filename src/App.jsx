@@ -12,7 +12,6 @@ import MindMap from './components/MindMap'
 import Footer from './components/Footer'
 import FallingFlowers from './components/FallingFlowers'
 import VideoSection from './components/VideoSection'
-import MindmapPage from './components/MindmapPage'
 import TugOfWarGame from './components/TugOfWarGame'
 
 const HomePage = () => (
@@ -75,7 +74,6 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/overview" element={<PresentationOverview />} />
           <Route path="/video" element={<VideoSection />} />
-          <Route path="/mindmap-detail" element={<MindmapPage />} />
           <Route path="/game" element={<TugOfWarGame />} />
         </Routes>
         

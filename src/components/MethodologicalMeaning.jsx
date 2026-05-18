@@ -4,16 +4,16 @@ import { CircleCheck } from 'lucide-react';
 
 const meanings = [
   {
-    title: "Hiểu cấu trúc xã hội",
-    desc: "Nhận ra rằng trong mỗi xã hội luôn có phân hóa giai cấp và những cộng đồng dân tộc với vị trí, lợi ích khác nhau.",
+    title: "Rèn luyện lý tưởng sống đúng đắn.",
+    desc: "Có trách nhiệm với gia đình, xã hội và đất nước.Trung thực trong học tập và thi cử.",
   },
   {
-    title: "Xây dựng chính sách hợp lý",
-    desc: "Khi hoạch định chính sách phải kết hợp lợi ích giai cấp, lợi ích dân tộc và mục tiêu phát triển lâu dài.",
+    title: "Có tinh thần đoàn kết và giúp đỡ người khác.",
+    desc: "Không ngừng học tập, nâng cao tri thức và đạo đức.Chống lối sống thực dụng, ích kỷ và các tệ nạn xã hội.",
   },
   {
-    title: "Tăng cường đoàn kết dân tộc",
-    desc: "Biết đặt lợi ích dân tộc lên trên trong những thời điểm cần thiết để tránh chia rẽ, xung đột cực đoan.",
+    title: "Học tập và làm theo tư tưởng, đạo đức Hồ Chí Minh",
+    desc: "Việc học tập và làm theo tư tưởng, đạo đức, phong cách Hồ Chí Minh giúp sinh viên hoàn thiện nhân cách, trở thành công dân tốt và đóng góp tích cực cho xã hội.",
   },
 ];
 
@@ -33,7 +33,7 @@ const MethodologicalMeaning = () => {
             </h2>
             <div className="h-2 w-24 bg-soviet-gold mb-8 shadow-sm" />
             <p className="text-xl text-zinc-600 leading-relaxed font-medium">
-              Từ nội dung giai cấp và dân tộc có thể rút ra những định hướng quan trọng cho nhận thức và hành động thực tiễn.
+              Trong giai đoạn hiện nay, tư tưởng Hồ Chí Minh về đạo đức vẫn giữ nguyên giá trị và có ý nghĩa rất lớn đối với thế hệ trẻ, đặc biệt là sinh viên.
             </p>
             <div className="mt-10">
               <img

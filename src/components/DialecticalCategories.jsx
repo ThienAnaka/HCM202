@@ -5,27 +5,27 @@ import { Scale, ShieldCheck, Users2, Landmark } from 'lucide-react';
 const items = [
   {
     icon: Users2,
-    title: 'Giai cấp trong lòng dân tộc',
+    title: 'Nói đi đôi với làm, phải nêu gương về đạo đức',
     id: 'theory-revolution',
-    desc: 'Mỗi dân tộc đều có nhiều giai cấp và tầng lớp; giai cấp không tồn tại tách rời cộng đồng dân tộc.'
+    desc: 'Lời nói phải đi đôi với việc làm.Nói mà không làm sẽ làm mất lòng tin của nhân dân.Người cán bộ phải làm gương cho quần chúng.'
   },
   {
     icon: Scale,
-    title: 'Vừa thống nhất vừa mâu thuẫn',
+    title: 'Xây đi đôi với chống',
     id: 'theory-revolution',
-    desc: 'Khi chống xâm lược thì lợi ích dân tộc là ưu tiên; khi hòa bình, khác biệt lợi ích giai cấp nổi bật hơn.'
+    desc: 'Theo Hồ Chí Minh, xây và chống phải tiến hành đồng thời, trong đó xây là cơ bản, lâu dài. Muốn xây dựng đạo đức mới phải đồng thời chống lại cái xấu, cái ác và các biểu hiện tiêu cực.'
   },
   {
     icon: ShieldCheck,
-    title: 'Quan điểm Mác - Lênin',
+    title: 'Phải tu dưỡng đạo đức suốt đời',
     id: 'theory-revolution',
-    desc: 'Vấn đề dân tộc chịu ảnh hưởng bởi vấn đề giai cấp; chính sách dân tộc cần xuất phát từ lợi ích xã hội lâu dài.'
+    desc: 'Thường xuyên tự phê bình và phê bình.Không ngừng học tập và rèn luyện.Kiên trì sửa chữa khuyết điểm.Giữ gìn phẩm chất đạo đức trong mọi hoàn cảnh.'
   },
   {
     icon: Landmark,
     id: 'theory-revolution',
-    title: 'Cách mạng Việt Nam',
-    desc: 'Hồ Chí Minh kết hợp giải phóng dân tộc với giải phóng giai cấp để giải quyết đồng thời nhiệm vụ lịch sử.'
+    title: 'Kết hợp giữa giáo dục và tự rèn luyện',
+    desc: 'Theo tư tưởng của Hồ Chí Minh, đạo đức cách mạng không tự nhiên mà có. Nó được hình thành thông qua giáo dục và đặc biệt là sự tự rèn luyện của mỗi cá nhân.'
   }
 ];
 
@@ -41,7 +41,7 @@ const DialecticalCategories = () => {
           <div className="grid md:grid-cols-[1.1fr_0.9fr] gap-10 items-center">
             <div className="text-center md:text-left">
               <h2 id="theory-relationship" className="text-4xl md:text-6xl font-black text-soviet-red mb-6 uppercase tracking-tighter italic">
-                Quan Hệ Giai Cấp Và Dân Tộc
+                Những nguyên tắc xây dựng đạo đức cách mạng
               </h2>
               <div className="h-2 w-24 bg-soviet-gold mx-auto md:mx-0 mb-8 rounded-full" />
               <p className="text-lg text-zinc-500 max-w-3xl md:max-w-none font-medium">

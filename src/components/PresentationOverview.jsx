@@ -13,11 +13,11 @@ const PresentationOverview = () => {
   ];
 
   const outline = [
-    { title: "Giai cấp là gì?", desc: "Định nghĩa của Lênin, đặc trưng, nguồn gốc và đấu tranh giai cấp.", href: "/#theory-class" },
-    { title: "Dân tộc là gì?", desc: "Định nghĩa, hai nghĩa của dân tộc, đặc trưng và vai trò.", href: "/#theory-nation" },
-    { title: "Quan hệ giữa giai cấp và dân tộc", desc: "Mối quan hệ vừa thống nhất vừa mâu thuẫn trong xã hội.", href: "/#theory-relationship" },
-    { title: "Trong cách mạng Việt Nam", desc: "Kết hợp giải phóng dân tộc với giải phóng giai cấp theo Hồ Chí Minh.", href: "/#theory-revolution" },
-    { title: "Ý nghĩa và tóm tắt", desc: "Rút ra ý nghĩa nhận thức, thực tiễn và phần tóm tắt trọng tâm.", href: "/#theory-meaning" },
+    { title: "Đạo đức là gì?", desc: "Đạo đức là gốc của người cách mạng.", href: "/#theory-class" },
+    { title: "Quan điểm của Hồ Chí Minh về chuẩn mực đạo đức", desc: "Hồ Chí Minh kế thừa tư tưởng “trung quân ái quốc” của Nho giáo nhưng phát triển lên thành “trung với nước”", href: "/#theory-nation" },
+    { title: "nguyên tắc", desc: "xây dựng đạo đức cách mạng.", href: "/#theory-relationship" },
+    { title: "Xây dựng đạo đức cách mạng", desc: "Giai cấp và dân tộc vừa gắn bó chặt chẽ, vừa có những thời điểm mâu thuẫn tùy theo điều kiện lịch sử cụ thể.", href: "/#theory-revolution" },
+    { title: "Ý nghĩa và tóm tắt", desc: "Trong giai đoạn hiện nay, tư tưởng Hồ Chí Minh về đạo đức vẫn giữ nguyên giá trị và có ý nghĩa rất lớn đối với thế hệ trẻ, đặc biệt là sinh viên.", href: "/#theory-meaning" },
   ];
 
   const tools = [

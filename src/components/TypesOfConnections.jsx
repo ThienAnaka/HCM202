@@ -5,23 +5,39 @@ import { MapPinned, Languages, BadgeCheck, PartyPopper } from 'lucide-react';
 const connections = [
   {
     icon: MapPinned,
-    title: "Định Nghĩa Dân Tộc",
-    desc: "Dân tộc là một cộng đồng người ổn định, có chung lãnh thổ, ngôn ngữ, đời sống kinh tế, văn hóa và tâm lý."
+    title: "Trung với nước",
+    id: 'theory-nation',
+    desc: "Tuyệt đối trung thành với Tổ quốc.Kiên định mục tiêu độc lập dân tộc và chủ nghĩa xã hội.Đặt lợi ích của đất nước lên trên hết.Sẵn sàng hy sinh vì sự nghiệp bảo vệ và xây dựng đất nước."
   },
   {
     icon: Languages,
-    title: "Hai Nghĩa Của Dân Tộc",
-    desc: "Nghĩa hẹp là cộng đồng tộc người như Kinh, Tày, Thái, H’Mông; nghĩa rộng là một quốc gia hoàn chỉnh gồm nhiều cộng đồng dân tộc."
+    title: "Hiếu với dân",
+    id: 'theory-nation',
+    desc: "Nhân dân là chủ của đất nước.Mọi quyền lực đều thuộc về nhân dân.Cán bộ phải kính trọng, gần gũi và phục vụ nhân dân.Việc gì có lợi cho dân phải hết sức làm, việc gì có hại cho dân phải hết sức tránh."
   },
   {
-    icon: BadgeCheck,
-    title: "Đặc Trưng Của Dân Tộc",
-    desc: "Dân tộc có tính ổn định lâu dài, ý thức tự giác, tinh thần đoàn kết và chung lịch sử phát triển."
+    icon: Languages,
+    title: "Cần, kiệm, liêm, chính, chí công vô tư",
+    id: 'theory-nation',
+    desc: "Đây là những phẩm chất đạo đức cơ bản của người cán bộ cách mạng.Theo Hồ Chí Minh, đây là phẩm chất cao nhất của đạo đức cách mạng."
   },
   {
     icon: PartyPopper,
-    title: "Vai Trò Của Dân Tộc",
-    desc: "Dân tộc là nền tảng của nhà nước, tạo nên bản sắc văn hóa và là động lực trong bảo vệ, xây dựng đất nước."
+    title: "Thương yêu con người, sống có tình nghĩa",
+    id: 'theory-nation',
+    desc: "Yêu thương nhân dân lao động.Quan tâm đến người nghèo khổ, bị áp bức.Khoan dung với con người.Giúp đỡ nhau cùng tiến bộ.Đoàn kết, giúp đỡ đồng chí và đồng bào."
+  },
+  {
+    icon: PartyPopper,
+    title: "Có tinh thần quốc tế trong sáng",
+    id: 'theory-nation',
+    desc: "Tinh thần quốc tế trong sáng thể hiện ở đoàn kết với nhân dân lao động và các dân tộc bị áp bức trên thế giới.Tôn trọng độc lập, chủ quyền của các quốc gia.Hợp tác hữu nghị vì hòa bình và tiến bộ xã hội."
+  },
+  {
+    icon: PartyPopper,
+    title: "Vai Trò",
+    id: 'theory-nation',
+    desc: "Hết lòng chăm lo đời sống nhân dân.Tôn trọng quyền làm chủ của nhân dân.Lắng nghe ý kiến của nhân dân.Chống quan liêu, hách dịch, xa dân."
   },
 ];
 
@@ -38,10 +54,10 @@ const TypesOfConnections = () => {
           <div className="grid md:grid-cols-[1.1fr_0.9fr] gap-10 items-center">
             <div className="text-center md:text-left">
               <h2 id="theory-nation" className="text-4xl md:text-6xl font-bold text-soviet-red mb-6">
-                Dân Tộc Là Gì?
+                Quan điểm của Hồ Chí Minh về chuẩn mực đạo đức
               </h2>
               <p className="text-lg text-zinc-500 max-w-2xl md:max-w-none">
-                Phần này hệ thống hóa định nghĩa, hai nghĩa, đặc trưng và vai trò của dân tộc trong triết học Mác - Lênin.
+                Hồ Chí Minh kế thừa tư tưởng “trung quân ái quốc” của Nho giáo nhưng phát triển lên thành “trung với nước”. Trung ở đây không phải trung với vua mà là trung với Tổ quốc, với nhân dân.
               </p>
             </div>
             <div className="w-full">
@@ -82,6 +98,14 @@ const TypesOfConnections = () => {
               <p className="text-zinc-600 text-center text-sm leading-relaxed">
                 {c.desc}
               </p>
+              {c.id === 'theory-nation' && (
+                  <img
+                    src="/image/NgauNhienTatNhien.jpg"
+                    alt="Minh hoa dan toc"
+                    className="mt-6 w-full rounded-2xl border border-zinc-200 shadow-md object-cover aspect-[4/3]"
+                    loading="lazy"
+                  />
+                )}
             </motion.div>
           ))}
         </div>

@@ -5,23 +5,27 @@ import { Users, Scale, Factory, Swords } from 'lucide-react';
 const theories = [
   {
     title: "Định Nghĩa",
+    id: 'theory-class',
     icon: <Users className="w-8 h-8 text-soviet-red" />,
-    description: "Theo V. I. Lênin, giai cấp là những tập đoàn người lớn khác nhau về vị trí trong hệ thống sản xuất xã hội, quan hệ với tư liệu sản xuất, vai trò trong tổ chức lao động và cách hưởng thụ của cải."
+    description: "Đạo đức là nền tảng tạo nên nhân cách của mỗi con người, đặc biệt đối với cán bộ, đảng viên. Người cho rằng người cán bộ muốn hoàn thành nhiệm vụ phải vừa có đức vừa có tài, trong đó đức là gốc."
   },
   {
     title: "Đặc Trưng",
+    id: 'theory-class',
     icon: <Scale className="w-8 h-8 text-soviet-red" />,
-    description: "Giai cấp được nhận diện qua quan hệ với tư liệu sản xuất, vai trò trong tổ chức lao động, cách thức phân phối của cải và địa vị xã hội."
+    description: "Đạo đức không chỉ là phẩm chất cá nhân mà còn là sức mạnh tinh thần của cả dân tộc. Trong mọi giai đoạn cách mạng, đạo đức giúp con người vượt qua khó khăn, gian khổ để hoàn thành nhiệm vụ."
   },
   {
-    title: "Nguồn Gốc",
+    title: "Sức Mạnh Tinh Thần To Lớn",
+    id: 'theory-class',
     icon: <Factory className="w-8 h-8 text-soviet-red" />,
-    description: "Giai cấp xuất hiện khi có tư hữu về tư liệu sản xuất, phân công lao động xã hội và sự chênh lệch giàu nghèo; từ đó xã hội phân hóa thành giai cấp thống trị và bị trị."
+    description: "●	Nhờ có đạo đức cách mạng mà cán bộ, chiến sĩ và nhân dân ta đã vượt qua nhiều thử thách trong chiến tranh.Đạo đức tạo nên tinh thần đoàn kết, lòng yêu nước và ý chí đấu tranh."
   },
   {
-    title: "Đấu Tranh Giai Cấp",
+    title: "Nhân Tố Quyết Định Sự Thành Bại",
+    id: 'theory-class',
     icon: <Swords className="w-8 h-8 text-soviet-red" />,
-    description: "Theo Marx, lịch sử xã hội loài người là lịch sử đấu tranh giai cấp; lợi ích đối lập giữa các giai cấp thường dẫn tới xung đột kinh tế và chính trị."
+    description: "Hồ Chí Minh khẳng định rằng một Đảng cách mạng muốn lãnh đạo được nhân dân thì phải thật sự trong sạch và có đạo đức.Do đó, việc xây dựng đạo đức cách mạng luôn gắn liền với công tác xây dựng Đảng và xây dựng hệ thống chính trị trong sạch, vững mạnh."
   }
 ];
 
@@ -37,9 +41,9 @@ const TheorySection = () => {
         >
           <div className="grid md:grid-cols-[1.1fr_0.9fr] gap-10 items-center">
             <div className="text-center md:text-left">
-              <h2 id="theory-class" className="text-3xl md:text-5xl font-bold text-zinc-900 mb-6 tracking-tight">Giai Cấp Là Gì?</h2>
+              <h2 id="theory-class" className="text-3xl md:text-5xl font-bold text-zinc-900 mb-6 tracking-tight">Đạo đức là gốc của người cách mạng</h2>
               <p className="text-zinc-600 max-w-2xl md:max-w-none text-lg leading-relaxed">
-                Giai cấp là phạm trù trung tâm để nhận diện phân hóa xã hội và các quan hệ lợi ích trong phương thức sản xuất.
+                Đạo đức là nền tảng và sức mạnh nội sinh giúp người cách mạng vượt qua mọi khó khăn, thử thách.và là yếu tố quyết định sự thành công của cách mạng
               </p>
             </div>
             <div className="w-full">
@@ -70,6 +74,14 @@ const TheorySection = () => {
               <p className="text-zinc-600 leading-relaxed">
                 {theory.description}
               </p>
+              {theory.id === 'theory-class' && (
+                  <img
+                    src="/image/NgauNhienTatNhien.jpg"
+                    alt="Minh hoa cach mang Viet Nam"
+                    className="mt-6 w-full rounded-2xl border border-zinc-200 shadow-md object-cover aspect-[4/3]"
+                    loading="lazy"
+                  />
+                )}
             </motion.div>
           ))}
         </div>
