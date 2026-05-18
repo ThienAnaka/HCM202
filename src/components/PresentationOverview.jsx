@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { Users, ListOrdered, BookOpen, Cpu, MessageSquare, PenTool, Terminal, Book } from 'lucide-react';
+import { Users, ListOrdered, BookOpen, Cpu, MessageSquare, Trophy, Book, Palette } from 'lucide-react';
 
 const PresentationOverview = () => {
   const members = [
@@ -13,19 +13,19 @@ const PresentationOverview = () => {
   ];
 
   const outline = [
-    { title: "Giai cấp là gì?", desc: "Định nghĩa của Lênin, đặc trưng, nguồn gốc và đấu tranh giai cấp.", href: "/#theory-class" },
-    { title: "Dân tộc là gì?", desc: "Định nghĩa, hai nghĩa của dân tộc, đặc trưng và vai trò.", href: "/#theory-nation" },
-    { title: "Quan hệ giữa giai cấp và dân tộc", desc: "Mối quan hệ vừa thống nhất vừa mâu thuẫn trong xã hội.", href: "/#theory-relationship" },
-    { title: "Trong cách mạng Việt Nam", desc: "Kết hợp giải phóng dân tộc với giải phóng giai cấp theo Hồ Chí Minh.", href: "/#theory-revolution" },
-    { title: "Ý nghĩa và tóm tắt", desc: "Rút ra ý nghĩa nhận thức, thực tiễn và phần tóm tắt trọng tâm.", href: "/#theory-meaning" },
+    { title: "Đạo đức là gì?", desc: "Đạo đức là gốc của người cách mạng."},
+    { title: "Quan điểm của Hồ Chí Minh về chuẩn mực đạo đức", desc: "Hồ Chí Minh kế thừa tư tưởng “trung quân ái quốc” của Nho giáo nhưng phát triển lên thành “trung với nước”"},
+    { title: "nguyên tắc", desc: "xây dựng đạo đức cách mạng."},
+    { title: "Xây dựng đạo đức cách mạng", desc: "Giai cấp và dân tộc vừa gắn bó chặt chẽ, vừa có những thời điểm mâu thuẫn tùy theo điều kiện lịch sử cụ thể."},
+    { title: "Ý nghĩa và tóm tắt", desc: "Trong giai đoạn hiện nay, tư tưởng Hồ Chí Minh về đạo đức vẫn giữ nguyên giá trị và có ý nghĩa rất lớn đối với thế hệ trẻ, đặc biệt là sinh viên."},
   ];
 
   const tools = [
     { name: "Nội dung", icon: <Book className="w-6 h-6" />, color: "bg-blue-500", desc: "Tổng hợp theo đúng dàn ý giai cấp và dân tộc" },
     { name: "Diễn giải", icon: <MessageSquare className="w-6 h-6" />, color: "bg-emerald-500", desc: "Biến ý chính thành nội dung dễ học, dễ nhớ" },
-    { name: "Thiết kế", icon: <PenTool className="w-6 h-6" />, color: "bg-purple-500", desc: "Trình bày lại nội dung thành giao diện thuyết trình" },
-    { name: "Biên tập", icon: <Terminal className="w-6 h-6" />, color: "bg-sky-500", desc: "Chỉnh sửa các section và điều hướng trong web" },
-    { name: "Hệ thống hóa", icon: <Cpu className="w-6 h-6" />, color: "bg-orange-500", desc: "Tạo sơ đồ tư duy và mạch học tập liên kết" },
+    { name: "Hiệu Ứng", icon: <Palette className="w-6 h-6" />, color: "bg-purple-500", desc: "Hiệu Ứng lá đổ ở nền Background" },
+    { name: "Game", icon: <Trophy className="w-6 h-6" />, color: "bg-sky-500", desc: "Chỉnh sửa game trong web" },
+    { name: "Sơ đồ tư duy", icon: <Cpu className="w-6 h-6" />, color: "bg-orange-500", desc: "Tạo sơ đồ tư duy và mạch học tập liên kết" },
   ];
 
   return (
@@ -124,7 +124,7 @@ const PresentationOverview = () => {
           </div>
           
           <h3 className="text-2xl font-bold text-center uppercase tracking-widest text-zinc-400 mb-12">
-            Phụ lục: Cách triển khai nội dung
+            AI usage
           </h3>
           
           <div className="grid grid-cols-1 md:grid-cols-5 gap-8">

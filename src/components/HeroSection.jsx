@@ -13,8 +13,8 @@ const HeroSection = () => {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1.2, ease: "easeOut" }}
         >
-          <h1 className="text-5xl md:text-9xl font-bold tracking-tighter text-soviet-red mb-6 uppercase leading-[0.95]">
-            Tư Tưởng <br /> <span className="text-soviet-orange">về Đạo Đức</span>
+          <h1 className="text-7xl md:text-5xl font-bold tracking-tighter text-soviet-red mb-6 uppercase leading-[1]">
+            Quan điểm của Hồ Chí Minh <br /> <span className="text-soviet-orange">về vai trò và sức mạnh của đạo đức</span>
           </h1>
           <div className="h-2 w-48 bg-soviet-gold mx-auto mb-10 shadow-sm rounded-full" />
         </motion.div>

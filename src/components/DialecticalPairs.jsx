@@ -22,7 +22,7 @@ const DialecticalPairs = () => {
         >
           <h2 className="text-3xl md:text-5xl font-bold text-zinc-
                          900 mb-6 tracking-tight">Các Ý Chính Của Bài Học</h2>
-          <p className="text-zinc-600 max-w-2xl mx-auto">Các khái niệm trọng tâm giúp hệ thống hóa nội dung giai cấp và dân tộc.</p>
+          <p className="text-zinc-600 max-w-2xl mx-auto">Các khái niệm trọng tâm giúp hệ thống hóa nội dung.</p>
         </motion.div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
