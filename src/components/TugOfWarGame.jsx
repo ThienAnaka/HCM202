@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, Trophy, Skull, Zap, Timer, ShieldAlert, Star, RotateCcw } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import QUESTIONS from './tugofwar/questions';
+import { playStunSound, playComboSound, playWinSound, playLoseSound } from './tugofwar/soundEffects';
 
 /* ───── helpers ───── */
 const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
@@ -17,10 +18,133 @@ const pick = (pool, used) => {
 const TIMER_DURATION = 12;
 
 /* ───── sub-components ───── */
-const RopeVisual = ({ ropePosition }) => {
+const PlayerCharacter = ({ team, index, isStunned, isPulling, combo }) => {
+  const isLeft = team === 'left';
+  
+  // Base breathing animation
+  const breathing = {
+    y: [0, -3, 0],
+    rotate: isLeft ? -5 : 5,
+    transition: {
+      duration: 1.8 + index * 0.2,
+      repeat: Infinity,
+      ease: "easeInOut"
+    }
+  };
+
+  // Pulling animation (leaning back and shaking with exertion)
+  const pulling = {
+    rotate: isLeft ? -25 : 25,
+    x: isLeft ? [-2, 2, -2] : [2, -2, 2],
+    y: [-2, 2, -2],
+    transition: {
+      x: { repeat: Infinity, duration: 0.12 + index * 0.04, ease: "linear" },
+      y: { repeat: Infinity, duration: 0.16 + index * 0.04, ease: "linear" },
+    }
+  };
+
+  // Stunned animation (dizzy, shaking, drooping down)
+  const stunned = {
+    rotate: isLeft ? 15 : -15,
+    y: 6,
+    x: [-1, 1, -1],
+    transition: {
+      x: { repeat: Infinity, duration: 0.1, ease: "linear" }
+    }
+  };
+
+  const currentAnim = isStunned ? stunned : isPulling ? pulling : breathing;
+
+  return (
+    <motion.div
+      className="relative flex flex-col items-center select-none"
+      animate={currentAnim}
+      style={{ zIndex: 10 - index }}
+    >
+      {/* Dizzy stars for stunned */}
+      {isStunned && (
+        <motion.div 
+          className="absolute -top-6 text-sm"
+          animate={{ rotate: 360 }}
+          transition={{ repeat: Infinity, duration: 2, ease: "linear" }}
+        >
+          💫🌟💫
+        </motion.div>
+      )}
+
+      {/* Fire glow for high combo (Team Red only) */}
+      {!isStunned && isLeft && combo >= 3 && (
+        <div className="absolute -inset-2 bg-gradient-to-t from-amber-500/30 to-red-500/0 rounded-full blur-md animate-pulse" />
+      )}
+
+      {/* Head / Helmet / Cap */}
+      <div className={`relative w-9 h-9 rounded-full flex items-center justify-center shadow-lg border-2 z-10 ${
+        isLeft 
+          ? 'bg-gradient-to-br from-red-500 via-rose-600 to-red-700 border-yellow-400 shadow-red-500/20' 
+          : 'bg-gradient-to-br from-blue-500 via-indigo-600 to-cyan-700 border-cyan-400 shadow-blue-500/20'
+      }`}>
+        {isLeft ? (
+          // Red team: Gold star
+          <span className="text-yellow-300 font-bold text-xs select-none">★</span>
+        ) : (
+          // Blue team: AI / Robot face
+          <span className="text-cyan-200 text-xs select-none">🤖</span>
+        )}
+      </div>
+
+      {/* Body capsule with a leaning shoulder shape */}
+      <div className={`w-8 h-10 -mt-2 rounded-t-2xl shadow-md border-t border-x ${
+        isLeft 
+          ? 'bg-gradient-to-b from-red-600 to-red-800 border-red-400' 
+          : 'bg-gradient-to-b from-blue-600 to-blue-800 border-blue-400'
+      }`} />
+
+      {/* Small pulling arms */}
+      <div className={`absolute top-6 w-6 h-2 rounded-full bg-amber-600/80 ${
+        isLeft ? 'right-[-4px] rotate-[-20deg]' : 'left-[-4px] rotate-[20deg]'
+      }`} />
+    </motion.div>
+  );
+};
+
+const TeamPullers = ({ team, isStunned, combo, feedback, gamePhase }) => {
+  const isLeft = team === 'left';
+  
+  // Decide states for the team
+  let isTeamStunned = false;
+  let isTeamPulling = false;
+  
+  if (gamePhase === 'playing') {
+    if (isLeft) {
+      isTeamStunned = isStunned;
+      isTeamPulling = !isStunned && (feedback === 'correct' || !feedback);
+    } else {
+      // AI team
+      isTeamStunned = false;
+      isTeamPulling = true;
+    }
+  }
+
+  return (
+    <div className={`absolute bottom-3 flex -space-x-3 ${isLeft ? 'left-[1%]' : 'right-[1%] flex-row-reverse'}`}>
+      {[0, 1, 2].map((idx) => (
+        <PlayerCharacter
+          key={idx}
+          team={team}
+          index={idx}
+          isStunned={isTeamStunned}
+          isPulling={isTeamPulling}
+          combo={combo}
+        />
+      ))}
+    </div>
+  );
+};
+
+const RopeVisual = ({ ropePosition, isStunned, combo, feedback, gamePhase }) => {
   const pct = ((ropePosition + 100) / 200) * 100;
   return (
-    <div className="relative w-full h-32 flex items-center select-none">
+    <div className="relative w-full h-36 flex items-center select-none overflow-visible">
       {/* ground line */}
       <div className="absolute bottom-4 left-0 right-0 h-1 bg-zinc-700 rounded-full" />
       {/* zone labels */}
@@ -29,12 +153,12 @@ const RopeVisual = ({ ropePosition }) => {
       {/* center mark */}
       <div className="absolute left-1/2 -translate-x-1/2 bottom-2 w-0.5 h-6 bg-zinc-600" />
       {/* rope */}
-      <div className="absolute bottom-[14px] left-[10%] right-[10%] h-3 rounded-full bg-gradient-to-r from-amber-700 via-amber-600 to-amber-700 shadow-lg"
+      <div className="absolute bottom-[14px] left-[15%] right-[15%] h-3 rounded-full bg-gradient-to-r from-amber-700 via-amber-600 to-amber-700 shadow-lg"
         style={{ backgroundSize: '20px 20px', backgroundImage: 'repeating-linear-gradient(90deg, transparent, transparent 8px, rgba(0,0,0,0.15) 8px, rgba(0,0,0,0.15) 10px)' }} />
       {/* marker / flag */}
       <motion.div
         className="absolute bottom-[10px]"
-        animate={{ left: `${clamp(pct, 8, 92)}%` }}
+        animate={{ left: `${clamp(pct, 15, 85)}%` }}
         transition={{ type: 'spring', stiffness: 200, damping: 25 }}
         style={{ translateX: '-50%' }}
       >
@@ -43,9 +167,9 @@ const RopeVisual = ({ ropePosition }) => {
           <div className="w-5 h-5 rounded-full bg-white border-4 border-yellow-400 shadow-[0_0_15px_rgba(250,204,21,0.7)]" />
         </div>
       </motion.div>
-      {/* team sprites */}
-      <div className="absolute bottom-5 left-[4%] text-2xl flex gap-0.5">🧑‍🤝‍🧑🧑‍🤝‍🧑🧑</div>
-      <div className="absolute bottom-5 right-[4%] text-2xl flex gap-0.5">🧑🧑‍🤝‍🧑🧑‍🤝‍🧑</div>
+      {/* dynamic team sprites */}
+      <TeamPullers team="left" isStunned={isStunned} combo={combo} feedback={feedback} gamePhase={gamePhase} />
+      <TeamPullers team="right" isStunned={false} combo={0} feedback={feedback} gamePhase={gamePhase} />
     </div>
   );
 };
@@ -142,7 +266,11 @@ const TugOfWarGame = () => {
       setRopePosition(prev => {
         const pull = isStunned ? aiForce * 1.5 : aiForce;
         const next = prev + pull;
-        if (next >= 100) { setGamePhase('lose'); return 100; }
+        if (next >= 100) { 
+          setGamePhase('lose'); 
+          playLoseSound();
+          return 100; 
+        }
         return next;
       });
     }, 1000);
@@ -182,9 +310,14 @@ const TugOfWarGame = () => {
     setFeedback('correct');
     setRopePosition(prev => {
       const next = prev - pull;
-      if (next <= -100) { setGamePhase('win'); return -100; }
+      if (next <= -100) { 
+        setGamePhase('win'); 
+        playWinSound();
+        return -100; 
+      }
       return next;
     });
+    playComboSound(newCombo);
     setAiForce(f => f + 0.15);
     setQuestionsAsked(q => q + 1);
     setAnswered(true);
@@ -201,6 +334,7 @@ const TugOfWarGame = () => {
     setAnswered(true);
     setIsStunned(true);
     setStunTimer(2);
+    playStunSound();
   };
 
   const handleTimeout = () => handleWrong();
@@ -283,7 +417,13 @@ const TugOfWarGame = () => {
             <span className="text-green-400">🔴 Đội Đỏ (Bạn)</span>
             <span className="text-blue-400">Đội Xanh (AI) 🔵</span>
           </div>
-          <RopeVisual ropePosition={ropePosition} />
+          <RopeVisual 
+            ropePosition={ropePosition} 
+            isStunned={isStunned}
+            combo={combo}
+            feedback={feedback}
+            gamePhase={gamePhase}
+          />
           {/* force bar */}
           <div className="mt-2 flex items-center gap-3">
             <span className="text-[10px] text-zinc-500 uppercase tracking-widest font-bold whitespace-nowrap">Vị trí dây</span>
