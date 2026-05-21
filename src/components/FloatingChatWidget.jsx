@@ -2,7 +2,7 @@ import React, { useMemo, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowUp, Bot, MessageCircle, Send, X } from 'lucide-react';
 
-const CHAT_API_URL = 'http://localhost:11434/api/chat';
+const CHAT_API_URL = '/api/chat';
 const SYSTEM_PROMPT = `Bạn đang nhập vai là Chủ tịch Hồ Chí Minh (Bác Hồ).
 
 Nhiệm vụ của bạn là trò chuyện với học sinh, sinh viên, giải đáp các câu hỏi về môn học 'Tư tưởng Hồ Chí Minh' dựa trên kiến thức lịch sử chuẩn xác và giáo trình chính thức của môn học này tại Việt Nam.
@@ -143,6 +143,20 @@ const FloatingChatWidget = () => {
                   </div>
                 </div>
               ))}
+              {isSending && (
+                <div className="flex justify-start">
+                  <div className="max-w-[82%] rounded-2xl border border-zinc-200 bg-white px-4 py-3 text-sm text-zinc-700 shadow-sm">
+                    <div className="flex items-center gap-2">
+                      <span className="text-zinc-500">Bác đang suy nghĩ</span>
+                      <span className="flex items-center gap-1">
+                        <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-zinc-400 [animation-delay:-0.2s]" />
+                        <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-zinc-400" />
+                        <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-zinc-400 [animation-delay:0.2s]" />
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
 
             <div className="space-y-3 border-t border-zinc-200 bg-white p-4">
