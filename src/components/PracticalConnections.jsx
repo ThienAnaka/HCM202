@@ -6,20 +6,20 @@ const PracticalConnections = () => {
   const examples = [
     {
       icon: Shield,
-      title: 'Khi chiến tranh xâm lược xảy ra',
-      desc: 'Lợi ích dân tộc trở thành điểm quy tụ lớn nhất, yêu cầu đoàn kết mọi giai cấp, tầng lớp để bảo vệ độc lập, chủ quyền.',
+      title: 'Cái Gốc Con người',
+      desc: 'đạo đức là gốc rễ để xây dựng, hoàn thiện nhân cách con người.',
       badge: 'soviet-red'
     },
     {
       icon: Hammer,
-      title: 'Khi xây dựng đất nước trong hòa bình',
-      desc: 'Mâu thuẫn giai cấp và vấn đề phân phối lợi ích nổi bật hơn, đòi hỏi chính sách xã hội hợp lý và công bằng.',
+      title: 'Có Ích Cho Xã Hội, Đất Nước',
+      desc: 'Giúp xây dựng một xã hội công bằng, văn minh.',
       badge: 'soviet-orange'
     },
     {
       icon: SunMedium,
-      title: 'Trong phát triển lâu dài',
-      desc: 'Kết hợp mục tiêu dân tộc với mục tiêu xã hội chủ nghĩa giúp củng cố đoàn kết, tạo động lực phát triển bền vững.',
+      title: 'Bản Chất',
+      desc: 'Có tài mà không có đức là người vô dụng, có đức mà không có tài thì làm việc gì cũng khó.',
       badge: 'soviet-gold'
     }
   ];
@@ -37,11 +37,11 @@ const PracticalConnections = () => {
             Ý Nghĩa Thực Tiễn
           </h2>
           <p className="text-lg text-zinc-600 max-w-2xl mx-auto font-medium">
-            Phần này cho thấy cách vận dụng quan hệ giai cấp - dân tộc vào phân tích xã hội và hoạch định chính sách.
+            Chủ tịch Hồ Chí Minh để lại nhiều lời dạy sâu sắc về đạo đức.
           </p>
           <div className="mt-10 max-w-3xl mx-auto">
             <img
-              src="/image/NguyenNhan.jpg"
+              src="/image/Picture3.png"
               alt="Minh hoa y nghia thuc tien"
               className="w-full rounded border border-zinc-200 shadow-lg object-cover aspect-[16/9]"
               loading="lazy"

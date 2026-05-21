@@ -7,7 +7,7 @@ const tocItems = [
     title: 'Đạo đức là gì?',
     desc: 'Đạo đức là gốc của người cách mạng.',
     href: '/#theory-class',
-    image: '/image/NgauNhienTatNhien.jpg',
+    image: '/image/image.png',
     imageAlt: 'Minh hoa dao duc la goc',
     content:
       'Đạo đức là nền tảng tạo nên nhân cách, đặc biệt với cán bộ, đảng viên. Người nhấn mạnh đức là gốc, tạo sức mạnh nội sinh giúp vượt qua khó khăn và hoàn thành nhiệm vụ.',
@@ -16,7 +16,7 @@ const tocItems = [
     title: 'Quan điểm về Chuẩn mực đạo đức',
     desc: 'Trung với nước, hiếu với dân và tinh thần quốc tế.',
     href: '/#theory-nation',
-    image: '/image/NgauNhienTatNhien.jpg',
+    image: '/image/Picture4.jpg',
     imageAlt: 'Minh hoa chuan muc dao duc',
     content:
       'Chuẩn mực đạo đức gồm trung với nước, hiếu với dân, cần kiệm liêm chính, chí công vô tư; thương yêu con người và có tinh thần quốc tế trong sáng.',
@@ -25,7 +25,7 @@ const tocItems = [
     title: 'Nguyên tắc xây dựng đạo đức cách mạng',
     desc: 'Những nguyên tắc xây dựng đạo đức cách mạng.',
     href: '/#theory-relationship',
-    image: '/image/NgauNhienTatNhien.jpg',
+    image: '/image/Picture6.jpg',
     imageAlt: 'Minh hoa nguyen tac dao duc',
     content:
       'Nói đi đôi với làm; xây đi đôi với chống; tu dưỡng đạo đức suốt đời; kết hợp giáo dục với tự rèn luyện.',
@@ -34,7 +34,7 @@ const tocItems = [
     title: 'Xây dựng đạo đức',
     desc: 'Tu dưỡng và rèn luyện đạo đức suốt đời.',
     href: '/#theory-revolution',
-    image: '/image/NgauNhienTatNhien.jpg',
+    image: '/image/Picture7.jpg',
     imageAlt: 'Minh hoa xay dung dao duc',
     content:
       'Đạo đức cách mạng được hình thành qua rèn luyện bền bỉ, tự phê bình, nêu gương và kiên trì sửa chữa khuyết điểm.',
@@ -43,7 +43,7 @@ const tocItems = [
     title: 'Ý nghĩa và tóm tắt',
     desc: 'Giá trị và ý nghĩa đối với thế hệ trẻ.',
     href: '/#theory-meaning',
-    image: '/image/NgauNhienTatNhien.jpg',
+    image: '/image/Picture8.jpg',
     imageAlt: 'Minh hoa y nghia',
     content:
       'Tư tưởng đạo đức Hồ Chí Minh vẫn còn nguyên giá trị, giúp sinh viên hoàn thiện nhân cách và đóng góp tích cực cho xã hội.',

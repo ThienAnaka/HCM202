@@ -37,7 +37,7 @@ const MethodologicalMeaning = () => {
             </p>
             <div className="mt-10">
               <img
-                src="/image/NgauNhienTatNhien.jpg"
+                src="/image/Picture10.jpg"
                 alt="Minh hoa y nghia"
                 className="w-full rounded-3xl border border-zinc-200 shadow-lg object-cover aspect-[4/3]"
                 loading="lazy"
