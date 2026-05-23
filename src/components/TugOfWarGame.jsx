@@ -105,11 +105,21 @@ const PlayerCharacter = ({ team, index, isStunned, isPulling, combo }) => {
   );
 };
 
-const TeamPullers = ({ team, isStunned, combo, isPulling, gamePhase }) => {
+const TeamPullers = ({ team, isStunned, combo, isPulling, gamePhase, ropePosition }) => {
   const isLeft = team === 'left';
 
   return (
-    <div className={`absolute bottom-2.5 flex -space-x-3.5 ${isLeft ? 'left-[2%]' : 'right-[2%] flex-row-reverse'}`}>
+    <motion.div
+      className={`absolute bottom-2.5 flex -space-x-3.5 ${isLeft ? 'left-[4%]' : 'right-[4%] flex-row-reverse'}`}
+      animate={{
+        x: ropePosition * 0.8,
+        y: isPulling ? [0, -1, 1, 0] : 0
+      }}
+      transition={{
+        x: { type: 'spring', stiffness: 200, damping: 25 },
+        y: { repeat: Infinity, duration: 0.15, ease: "linear" }
+      }}
+    >
       {[0, 1, 2].map((idx) => (
         <PlayerCharacter
           key={idx}
@@ -120,7 +130,7 @@ const TeamPullers = ({ team, isStunned, combo, isPulling, gamePhase }) => {
           combo={combo}
         />
       ))}
-    </div>
+    </motion.div>
   );
 };
 
@@ -133,25 +143,39 @@ const RopeVisual = ({ ropePosition, leftStunned, rightStunned, leftCombo, rightC
   return (
     <div className="relative w-full h-24 flex items-center select-none overflow-visible">
       {/* ground line */}
-      <div className="absolute bottom-4 left-0 right-0 h-0.5 bg-zinc-800 rounded-full" />
+      <div className="absolute bottom-4 left-0 right-0 h-0.5 bg-zinc-300 rounded-full" />
       {/* center mark */}
-      <div className="absolute left-1/2 -translate-x-1/2 bottom-2 w-0.5 h-6 bg-zinc-700" />
+      <div className="absolute left-1/2 -translate-x-1/2 bottom-2 w-0.5 h-6 bg-zinc-400" />
 
       {/* rope */}
-      <div
-        className="absolute bottom-[14px] left-[10%] right-[10%] h-2 rounded-full bg-gradient-to-r from-amber-700 via-amber-600 to-amber-700 shadow-md"
+      <motion.div
+        className="absolute bottom-[13px] h-3 rounded shadow-md border-y border-amber-950/30"
         style={{
-          backgroundSize: '15px 15px',
-          backgroundImage: 'repeating-linear-gradient(90deg, transparent, transparent 6px, rgba(0,0,0,0.2) 6px, rgba(0,0,0,0.2) 8px)'
+          left: '4%',
+          right: '4%',
+          backgroundImage: 'repeating-linear-gradient(-45deg, #b45309, #b45309 6px, #f59e0b 6px, #f59e0b 12px)'
+        }}
+        animate={{
+          x: ropePosition * 0.8,
+          y: gamePhase === 'playing' && (leftPulling || rightPulling) ? [-0.5, 0.5, -0.5] : 0
+        }}
+        transition={{
+          x: { type: 'spring', stiffness: 200, damping: 25 },
+          y: { repeat: Infinity, duration: 0.1, ease: "linear" }
         }}
       />
 
       {/* marker / flag */}
       <motion.div
-        className="absolute bottom-[10px]"
-        animate={{ left: `${clamp(pct, 12, 88)}%` }}
-        transition={{ type: 'spring', stiffness: 200, damping: 25 }}
-        style={{ translateX: '-50%' }}
+        className="absolute bottom-[10px] left-1/2"
+        animate={{
+          x: `calc(-50% + ${ropePosition * 0.8}px)`,
+          y: gamePhase === 'playing' && (leftPulling || rightPulling) ? [-1, 1, -1] : 0
+        }}
+        transition={{
+          x: { type: 'spring', stiffness: 200, damping: 25 },
+          y: { repeat: Infinity, duration: 0.1, ease: "linear" }
+        }}
       >
         <div className="flex flex-col items-center">
           <div className="text-xl">🚩</div>
@@ -160,8 +184,8 @@ const RopeVisual = ({ ropePosition, leftStunned, rightStunned, leftCombo, rightC
       </motion.div>
 
       {/* dynamic team sprites */}
-      <TeamPullers team="left" isStunned={leftStunned} combo={leftCombo} isPulling={leftPulling} gamePhase={gamePhase} />
-      <TeamPullers team="right" isStunned={rightStunned} combo={rightCombo} isPulling={rightPulling} gamePhase={gamePhase} />
+      <TeamPullers team="left" isStunned={leftStunned} combo={leftCombo} isPulling={leftPulling} gamePhase={gamePhase} ropePosition={ropePosition} />
+      <TeamPullers team="right" isStunned={rightStunned} combo={rightCombo} isPulling={rightPulling} gamePhase={gamePhase} ropePosition={ropePosition} />
     </div>
   );
 };
@@ -170,7 +194,7 @@ const TimerBar = ({ timeLeft, total }) => {
   const pct = (timeLeft / total) * 100;
   const color = pct > 50 ? 'bg-emerald-500' : pct > 25 ? 'bg-amber-500' : 'bg-rose-500 animate-pulse';
   return (
-    <div className="w-full h-1 bg-zinc-800 rounded-full overflow-hidden">
+    <div className="w-full h-1 bg-zinc-200 rounded-full overflow-hidden">
       <motion.div className={`h-full ${color} rounded-full`} animate={{ width: `${pct}%` }} transition={{ duration: 0.3 }} />
     </div>
   );
@@ -185,8 +209,8 @@ const ComboDisplay = ({ combo, isLeft }) => {
       initial={{ scale: 0.7, opacity: 0, y: 5 }}
       animate={{ scale: 1, opacity: 1, y: 0 }}
       className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full font-black text-[10px] uppercase tracking-wider ${isLeft
-        ? 'bg-red-500/20 text-red-400 border border-red-500/30 shadow-[0_0_12px_rgba(239,68,68,0.2)]'
-        : 'bg-blue-500/20 text-blue-400 border border-blue-500/30 shadow-[0_0_12px_rgba(59,130,246,0.2)]'
+        ? 'bg-soviet-red/10 text-soviet-red border border-soviet-red/20 shadow-sm shadow-soviet-red/5'
+        : 'bg-blue-50 text-blue-600 border border-blue-200 shadow-sm shadow-blue-100/10'
         }`}
     >
       <Zap className="w-3 h-3" /> Combo x{combo} {fire}
@@ -442,42 +466,45 @@ const TugOfWarGame = () => {
   // 1. MENU
   if (gamePhase === 'menu') {
     return (
-      <section className="min-h-screen bg-zinc-950 pt-28 pb-16 px-4 flex flex-col items-center">
-        <div className="max-w-2xl w-full">
+      <section className="min-h-screen pt-32 pb-16 px-4 flex flex-col items-center">
+        <div className="max-w-2xl w-full bg-white/90 backdrop-blur-md border-2 border-soviet-red/20 shadow-2xl rounded-3xl p-8 md:p-10 relative overflow-hidden">
+          {/* Top border decoration */}
+          <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-soviet-red via-soviet-gold to-soviet-red" />
+
           <div className="mb-6">
-            <Link to="/" className="text-zinc-500 hover:text-white flex items-center gap-2 font-bold uppercase text-[10px] tracking-wider transition-colors">
+            <Link to="/" className="text-zinc-400 hover:text-soviet-red flex items-center gap-2 font-bold uppercase text-[10px] tracking-wider transition-colors">
               <ArrowLeft className="w-3.5 h-3.5" /> Quay về trang chủ
             </Link>
           </div>
           <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="text-center">
             <div className="text-5xl mb-4">🪢</div>
-            <h1 className="text-4xl md:text-5xl font-black text-white mb-2 uppercase tracking-tight">
-              Kéo Co <span className="text-red-500">Đồng Đội</span>
+            <h1 className="text-4xl md:text-5xl font-black text-zinc-900 mb-2 uppercase tracking-tight">
+              Kéo Co <span className="text-soviet-red">Đồng Đội</span>
             </h1>
-            <div className="h-1 w-16 bg-yellow-500 mx-auto mb-6 rounded-full" />
+            <div className="h-1.5 w-24 bg-soviet-gold mx-auto mb-6 rounded-full" />
 
-            <p className="text-zinc-400 mb-6 font-medium text-sm max-w-lg mx-auto">
-              Trò chơi kéo co đối kháng hai đội trên cùng một màn hình! Trả lời đúng câu hỏi về <strong className="text-white">Tư tưởng Hồ Chí Minh</strong> để kéo dây về phía mình. Trả lời sai sẽ bị phạt và bị choáng!
+            <p className="text-zinc-650 mb-8 font-medium text-sm md:text-base max-w-lg mx-auto leading-relaxed">
+              Trò chơi kéo co đối kháng hai đội trên cùng một màn hình! Trả lời đúng câu hỏi về <strong className="text-soviet-red font-black">Tư tưởng Hồ Chí Minh</strong> để kéo dây về phía mình. Trả lời sai sẽ bị phạt và bị choáng!
             </p>
 
-            <div className="grid grid-cols-2 gap-4 text-left max-w-lg mx-auto mb-8 text-xs">
-              <div className="bg-red-500/10 border border-red-500/20 rounded-2xl p-4 flex flex-col gap-1 shadow-[0_0_15px_rgba(239,68,68,0.05)]">
-                <strong className="text-red-400 block text-sm uppercase mb-1">🔴 ĐỘI ĐỎ (Bên Trái)</strong>
-                <span className="text-zinc-400">⚡ Điều khiển: Phím <b className="text-red-300 bg-red-950/40 px-1.5 py-0.5 rounded border border-red-900/50">A, S, D, F</b> hoặc Click</span>
-                <span className="text-zinc-400">✅ Trả lời đúng: Kéo dây về bên TRÁI</span>
-                <span className="text-zinc-400">❌ Trả lời sai: Bị choáng 3s, dây bị kéo sang PHẢI</span>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left max-w-lg mx-auto mb-8 text-xs">
+              <div className="bg-soviet-red/5 border border-soviet-red/20 rounded-2xl p-5 flex flex-col gap-1.5 shadow-sm">
+                <strong className="text-soviet-red block text-sm uppercase mb-1">🔴 ĐỘI ĐỎ (Bên Trái)</strong>
+                <span className="text-zinc-600">⚡ Điều khiển: Phím <b className="text-soviet-red bg-soviet-red/10 px-2 py-0.5 rounded border border-soviet-red/20">A, S, D, F</b> hoặc Click</span>
+                <span className="text-zinc-600">✅ Trả lời đúng: Kéo dây về bên TRÁI</span>
+                <span className="text-zinc-600">❌ Trả lời sai: Bị choáng 3s, dây bị kéo sang PHẢI</span>
               </div>
-              <div className="bg-blue-500/10 border border-blue-500/20 rounded-2xl p-4 flex flex-col gap-1 shadow-[0_0_15px_rgba(59,130,246,0.05)]">
-                <strong className="text-blue-400 block text-sm uppercase mb-1">🔵 ĐỘI XANH (Bên Phải)</strong>
-                <span className="text-zinc-400">⚡ Điều khiển: Phím <b className="text-blue-300 bg-blue-950/40 px-1.5 py-0.5 rounded border border-blue-900/50">J, K, L, ;</b> hoặc Click</span>
-                <span className="text-zinc-400">✅ Trả lời đúng: Kéo dây về bên PHẢI</span>
-                <span className="text-zinc-400">❌ Trả lời sai: Bị choáng 3s, dây bị kéo sang TRÁI</span>
+              <div className="bg-blue-50/60 border border-blue-200 rounded-2xl p-5 flex flex-col gap-1.5 shadow-sm">
+                <strong className="text-blue-600 block text-sm uppercase mb-1">🔵 ĐỘI XANH (Bên Phải)</strong>
+                <span className="text-zinc-600">⚡ Điều khiển: Phím <b className="text-blue-600 bg-blue-50 px-2 py-0.5 rounded border border-blue-200">J, K, L, ;</b> hoặc Click</span>
+                <span className="text-zinc-600">✅ Trả lời đúng: Kéo dây về bên PHẢI</span>
+                <span className="text-zinc-600">❌ Trả lời sai: Bị choáng 3s, dây bị kéo sang TRÁI</span>
               </div>
             </div>
 
             <button
               onClick={startGame}
-              className="px-10 py-4 bg-gradient-to-r from-red-600 to-red-700 text-white font-black uppercase tracking-[0.25em] rounded-full shadow-[0_10px_30px_rgba(220,38,38,0.3)] hover:scale-105 active:scale-95 transition-all text-base border border-red-500/30"
+              className="px-10 py-4 bg-soviet-red hover:bg-soviet-orange text-white font-black uppercase tracking-[0.25em] rounded-full shadow-lg shadow-soviet-red/20 hover:scale-105 active:scale-95 transition-all text-base border-2 border-soviet-gold/30"
             >
               Bắt Đầu Kéo Co!
             </button>
@@ -491,27 +518,30 @@ const TugOfWarGame = () => {
   if (gamePhase === 'win_red' || gamePhase === 'win_blue') {
     const redWon = gamePhase === 'win_red';
     return (
-      <section className="min-h-screen bg-zinc-950 pt-28 pb-16 px-4 flex flex-col items-center justify-center">
+      <section className="min-h-screen pt-32 pb-16 px-4 flex flex-col items-center justify-center">
         <motion.div
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
-          className="text-center max-w-md w-full bg-zinc-900/40 border border-zinc-800/80 p-8 rounded-3xl backdrop-blur-sm"
+          className="text-center max-w-md w-full bg-white/90 backdrop-blur-md border-2 border-soviet-red/20 p-8 rounded-3xl shadow-2xl relative overflow-hidden"
         >
+          {/* Top border decoration */}
+          <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-soviet-red via-soviet-gold to-soviet-red" />
+
           <div className="text-6xl mb-4 animate-bounce">{redWon ? '🏆🔴' : '🏆🔵'}</div>
-          <h2 className={`text-3xl font-black uppercase mb-2 ${redWon ? 'text-red-500' : 'text-blue-400'}`}>
+          <h2 className={`text-3xl font-black uppercase mb-2 ${redWon ? 'text-soviet-red' : 'text-blue-600'}`}>
             {redWon ? 'Đội Đỏ Chiến Thắng!' : 'Đội Xanh Chiến Thắng!'}
           </h2>
-          <p className="text-zinc-400 mb-6 text-sm font-medium">
+          <p className="text-zinc-600 mb-6 text-sm font-medium">
             {redWon ? 'Đội Đỏ đã xuất sắc kéo sập phòng tuyến Đội Xanh!' : 'Đội Xanh đã xuất sắc kéo sập phòng tuyến Đội Đỏ!'}
           </p>
 
           <div className="grid grid-cols-2 gap-4 my-6">
-            <div className="bg-red-950/20 border border-red-900/30 rounded-2xl p-4 text-center">
-              <div className="text-2xl font-black text-red-400">{leftScore}</div>
+            <div className="bg-soviet-red/5 border border-soviet-red/20 rounded-2xl p-4 text-center">
+              <div className="text-2xl font-black text-soviet-red">{leftScore}</div>
               <div className="text-[9px] text-zinc-500 uppercase tracking-widest font-black">Số câu đúng Đỏ</div>
             </div>
-            <div className="bg-blue-950/20 border border-blue-900/30 rounded-2xl p-4 text-center">
-              <div className="text-2xl font-black text-blue-400">{rightScore}</div>
+            <div className="bg-blue-50/60 border border-blue-100 rounded-2xl p-4 text-center">
+              <div className="text-2xl font-black text-blue-600">{rightScore}</div>
               <div className="text-[9px] text-zinc-500 uppercase tracking-widest font-black">Số câu đúng Xanh</div>
             </div>
           </div>
@@ -519,13 +549,13 @@ const TugOfWarGame = () => {
           <div className="flex gap-4 justify-center">
             <button
               onClick={startGame}
-              className="px-8 py-3.5 bg-gradient-to-r from-yellow-500 to-amber-600 text-zinc-950 font-black uppercase tracking-wider text-xs rounded-full hover:scale-105 active:scale-95 transition-all flex items-center gap-1.5 shadow-[0_5px_15px_rgba(245,158,11,0.2)]"
+              className="px-8 py-3.5 bg-soviet-gold hover:bg-soviet-orange text-zinc-900 font-black uppercase tracking-wider text-xs rounded-full hover:scale-105 active:scale-95 transition-all flex items-center gap-1.5 shadow-md border border-soviet-gold"
             >
               <RotateCcw className="w-4 h-4" /> Chơi lại
             </button>
             <Link
               to="/"
-              className="px-8 py-3.5 bg-zinc-800 text-white font-black uppercase tracking-wider text-xs rounded-full hover:scale-105 active:scale-95 transition-all flex items-center"
+              className="px-8 py-3.5 bg-zinc-100 hover:bg-zinc-200 text-zinc-800 font-black uppercase tracking-wider text-xs rounded-full hover:scale-105 active:scale-95 transition-all flex items-center justify-center border border-zinc-200"
             >
               Trang chủ
             </Link>
@@ -537,19 +567,19 @@ const TugOfWarGame = () => {
 
   // 3. PLAYING STATE (PERFECTLY FITTED TO 1 SCREEN)
   return (
-    <section className="h-screen w-screen bg-zinc-950 text-white flex flex-col justify-between overflow-hidden p-3 select-none">
+    <section className="h-screen w-full text-zinc-800 flex flex-col justify-between overflow-hidden pt-24 pb-4 px-4 select-none relative z-10">
 
       {/* HEADER SECTION */}
       <div className="flex justify-between items-center h-8 px-2 shrink-0">
-        <Link to="/" className="text-zinc-500 hover:text-white flex items-center gap-1.5 font-bold uppercase text-[9px] tracking-widest transition-colors">
+        <Link to="/" className="text-zinc-500 hover:text-soviet-red flex items-center gap-1.5 font-bold uppercase text-[9px] tracking-widest transition-colors">
           <ArrowLeft className="w-3.5 h-3.5" /> Về trang chủ
         </Link>
-        <h2 className="text-xs sm:text-sm font-black text-zinc-300 uppercase tracking-[0.25em]">
-          Kéo Co <span className="text-red-500">Đồng Đội</span>
+        <h2 className="text-xs sm:text-sm font-black text-zinc-700 uppercase tracking-[0.25em]">
+          Kéo Co <span className="text-soviet-red">Đồng Đội</span>
         </h2>
         <button
           onClick={startGame}
-          className="text-zinc-500 hover:text-white flex items-center gap-1 font-bold uppercase text-[9px] tracking-widest transition-all hover:rotate-180 duration-500"
+          className="text-zinc-500 hover:text-soviet-red flex items-center gap-1 font-bold uppercase text-[9px] tracking-widest transition-all hover:rotate-180 duration-500"
           title="Chơi lại từ đầu"
         >
           <RotateCcw className="w-3 h-3" />
@@ -557,23 +587,23 @@ const TugOfWarGame = () => {
       </div>
 
       {/* ROPE / GAME STAGE SECTION */}
-      <div className="bg-zinc-900/40 border border-zinc-800/60 rounded-2xl p-2 sm:p-2.5 flex flex-col gap-1 shrink-0 shadow-[0_4px_20px_rgba(0,0,0,0.3)]">
+      <div className="bg-white/90 backdrop-blur-md border-2 border-soviet-red/10 rounded-2xl p-3 flex flex-col gap-2 shrink-0 shadow-lg">
         {/* Score and Position Row */}
         <div className="flex justify-between items-center text-xs font-black tracking-wider px-2">
           <div className="flex items-center gap-2">
-            <span className="text-red-500 text-xs sm:text-sm">🔴 Đội Đỏ</span>
-            <span className="bg-red-500/10 text-red-400 border border-red-900/40 px-1.5 py-0.5 rounded text-[10px] font-mono">{leftScore} điểm</span>
+            <span className="text-soviet-red text-xs sm:text-sm font-extrabold uppercase">🔴 Đội Đỏ</span>
+            <span className="bg-soviet-red/5 text-soviet-red border border-soviet-red/20 px-2 py-0.5 rounded text-[10px] font-mono font-bold shadow-sm">{leftScore} điểm</span>
             <ComboDisplay combo={leftCombo} isLeft={true} />
           </div>
 
-          <span className="text-[10px] text-zinc-500 uppercase tracking-widest font-black hidden sm:inline">
+          <span className="text-[10px] text-zinc-450 uppercase tracking-[0.2em] font-black hidden sm:inline">
             Sân Thi Đấu
           </span>
 
           <div className="flex items-center gap-2">
             <ComboDisplay combo={rightCombo} isLeft={false} />
-            <span className="bg-blue-500/10 text-blue-400 border border-blue-900/40 px-1.5 py-0.5 rounded text-[10px] font-mono">{rightScore} điểm</span>
-            <span className="text-blue-400 text-xs sm:text-sm">Đội Xanh 🔵</span>
+            <span className="bg-blue-50 text-blue-600 border border-blue-200 px-2 py-0.5 rounded text-[10px] font-mono font-bold shadow-sm">{rightScore} điểm</span>
+            <span className="text-blue-600 text-xs sm:text-sm font-extrabold uppercase">Đội Xanh 🔵</span>
           </div>
         </div>
 
@@ -589,26 +619,26 @@ const TugOfWarGame = () => {
 
         {/* Dynamic Force Bar */}
         <div className="flex items-center gap-2 px-1">
-          <span className="text-[9px] text-red-400 font-black uppercase tracking-wider shrink-0 select-none">Đỏ</span>
-          <div className="flex-1 h-1.5 bg-zinc-800 rounded-full overflow-hidden relative border border-zinc-900 shadow-inner">
-            <div className="absolute top-0 bottom-0 left-1/2 w-0.5 bg-zinc-600 z-10" />
+          <span className="text-[9px] text-soviet-red font-black uppercase tracking-wider shrink-0 select-none">Đỏ</span>
+          <div className="flex-1 h-1.5 bg-zinc-150 rounded-full overflow-hidden relative border border-zinc-205 shadow-inner">
+            <div className="absolute top-0 bottom-0 left-1/2 w-0.5 bg-zinc-400 z-10" />
             <motion.div
               className="h-full rounded-full"
               animate={{ width: `${clamp(50 - ropePosition / 2, 0, 100)}%` }}
-              style={{ background: 'linear-gradient(90deg, #ef4444, #3b82f6)' }}
+              style={{ background: 'linear-gradient(90deg, #dc2626, #2563eb)' }}
               transition={{ type: 'spring', stiffness: 200, damping: 25 }}
             />
           </div>
-          <span className="text-[9px] text-blue-400 font-black uppercase tracking-wider shrink-0 select-none">Xanh</span>
+          <span className="text-[9px] text-blue-600 font-black uppercase tracking-wider shrink-0 select-none">Xanh</span>
         </div>
       </div>
 
       {/* QUESTION AREA */}
-      <div className="bg-zinc-900/60 rounded-2xl p-2.5 sm:p-3 border border-zinc-800/80 relative overflow-hidden flex flex-col justify-center min-h-[85px] max-h-[105px] shrink-0">
+      <div className="bg-white/95 backdrop-blur-md rounded-2xl p-3 border-2 border-soviet-red/10 relative overflow-hidden flex flex-col justify-center min-h-[85px] max-h-[110px] shrink-0 shadow-md">
 
         {/* Progress Bar & Timer */}
         <div className="flex items-center gap-2 mb-1.5">
-          <Timer className="w-3.5 h-3.5 text-zinc-500 shrink-0" />
+          <Timer className="w-3.5 h-3.5 text-zinc-450 shrink-0" />
           <TimerBar timeLeft={questionTimer} total={TIMER_DURATION} />
           <span className={`font-mono font-black text-xs shrink-0 min-w-[2ch] text-right ${questionTimer <= 4 ? 'text-red-500 animate-pulse' : 'text-zinc-500'}`}>
             {questionTimer}s
@@ -617,7 +647,7 @@ const TugOfWarGame = () => {
 
         {/* Question Text */}
         {currentQuestion && (
-          <p className="text-zinc-100 font-bold text-xs sm:text-sm md:text-[15px] leading-snug text-center line-clamp-3 select-none px-4">
+          <p className="text-zinc-800 font-bold text-xs sm:text-sm md:text-[15px] leading-snug text-center line-clamp-3 select-none px-4">
             {currentQuestion.q}
           </p>
         )}
@@ -629,20 +659,20 @@ const TugOfWarGame = () => {
               initial={{ opacity: 0, y: 5 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
-              className="absolute inset-0 bg-zinc-900/95 flex items-center justify-center z-30"
+              className="absolute inset-0 bg-white/95 backdrop-blur-sm flex items-center justify-center z-30"
             >
               {roundWinner === 'left' && (
-                <span className="text-red-400 text-xs sm:text-sm font-black uppercase tracking-widest flex items-center gap-2 select-none animate-pulse">
+                <span className="text-soviet-red text-xs sm:text-sm font-black uppercase tracking-widest flex items-center gap-2 select-none animate-pulse">
                   🎉 Đội Đỏ đã trả lời ĐÚNG! +Lực kéo 🟥
                 </span>
               )}
               {roundWinner === 'right' && (
-                <span className="text-blue-400 text-xs sm:text-sm font-black uppercase tracking-widest flex items-center gap-2 select-none animate-pulse">
+                <span className="text-blue-600 text-xs sm:text-sm font-black uppercase tracking-widest flex items-center gap-2 select-none animate-pulse">
                   🟦 Đội Xanh đã trả lời ĐÚNG! +Lực kéo 🎉
                 </span>
               )}
               {roundWinner === 'timeout' && (
-                <span className="text-yellow-500 text-xs sm:text-sm font-black uppercase tracking-widest select-none">
+                <span className="text-soviet-orange text-xs sm:text-sm font-black uppercase tracking-widest select-none">
                   ⏰ HẾT GIỜ! Câu hỏi tiếp theo...
                 </span>
               )}
@@ -655,14 +685,14 @@ const TugOfWarGame = () => {
       <div className="grid grid-cols-2 gap-4 flex-1 min-h-0 py-2">
 
         {/* LEFT COLUMN: TEAM RED */}
-        <div className="flex flex-col bg-zinc-900/10 border border-zinc-800/80 rounded-2xl p-2 relative min-h-0 h-full justify-between shadow-[0_4px_25px_rgba(0,0,0,0.1)]">
+        <div className="flex flex-col bg-white/80 backdrop-blur-md border-2 border-soviet-red/10 rounded-2xl p-2.5 relative min-h-0 h-full justify-between shadow-md">
           {/* Column Header */}
-          <div className="flex justify-between items-center px-1 border-b border-zinc-900/50 pb-1.5 shrink-0">
-            <span className="text-[10px] sm:text-xs font-black text-red-500 tracking-wider flex items-center gap-1 select-none">
-              🔴 ĐỘI ĐỎ <span className="text-[9px] text-zinc-500 font-bold hidden md:inline">(A,S,D,F)</span>
+          <div className="flex justify-between items-center px-1 border-b border-zinc-200/50 pb-1.5 shrink-0">
+            <span className="text-[10px] sm:text-xs font-black text-soviet-red tracking-wider flex items-center gap-1 select-none">
+              🔴 ĐỘI ĐỎ <span className="text-[9px] text-zinc-400 font-bold hidden md:inline">(A,S,D,F)</span>
             </span>
             {leftFeedback === 'wrong' && (
-              <span className="text-[9px] font-black text-red-400 animate-pulse uppercase select-none">
+              <span className="text-[9px] font-black text-red-600 animate-pulse uppercase select-none">
                 Sai phạt 3s!
               </span>
             )}
@@ -682,16 +712,16 @@ const TugOfWarGame = () => {
                   disabled={answered || leftStunned}
                   onClick={() => handleAnswer('left', idx)}
                   className={`flex items-center gap-2 px-2.5 py-1.5 rounded-xl border text-left font-semibold transition-all relative flex-1 min-h-0 text-xs ${showResult && isCorrect
-                    ? 'border-emerald-500 bg-emerald-500/15 text-emerald-400 shadow-[0_0_12px_rgba(16,185,129,0.1)]'
+                    ? 'border-emerald-500 bg-emerald-500/10 text-emerald-600 font-bold shadow-[0_0_12px_rgba(16,185,129,0.1)]'
                     : showResult && !isCorrect
-                      ? 'border-zinc-800/50 text-zinc-600 opacity-30'
-                      : 'border-zinc-800 text-zinc-300 hover:border-red-500/50 hover:bg-red-500/5 hover:text-white'
+                      ? 'border-zinc-100 text-zinc-400 opacity-40 shadow-none pointer-events-none'
+                      : 'bg-white border-zinc-200 text-zinc-700 hover:border-soviet-red/30 hover:bg-soviet-red/5 hover:text-soviet-red shadow-sm'
                     }`}
                 >
                   {/* Option Badge */}
                   <span className={`w-5 h-5 rounded text-[10px] font-black flex items-center justify-center shrink-0 select-none ${showResult && isCorrect
-                    ? 'bg-emerald-500 text-zinc-950'
-                    : 'bg-zinc-800 text-zinc-400'
+                    ? 'bg-emerald-500 text-white font-black'
+                    : 'bg-zinc-100 text-zinc-400'
                     }`}>
                     {letter}
                   </span>
@@ -702,7 +732,7 @@ const TugOfWarGame = () => {
                   </span>
 
                   {/* Hotkey Badge */}
-                  <span className="text-[9px] font-mono font-extrabold text-zinc-600 bg-zinc-950 border border-zinc-850 px-1 rounded shrink-0 select-none hidden sm:inline">
+                  <span className="text-[9px] font-mono font-extrabold text-zinc-500 bg-zinc-50 border border-zinc-150 px-1 rounded shrink-0 select-none hidden sm:inline">
                     {hotkey}
                   </span>
                 </button>
@@ -712,23 +742,23 @@ const TugOfWarGame = () => {
 
           {/* Left Stun Overlay */}
           {leftStunned && (
-            <div className="absolute inset-0 bg-zinc-950/80 backdrop-blur-[2px] rounded-2xl flex flex-col items-center justify-center z-20 border border-red-500/20 select-none">
+            <div className="absolute inset-0 bg-white/90 backdrop-blur-[3px] rounded-2xl flex flex-col items-center justify-center z-20 border-2 border-soviet-red/30 shadow-lg select-none">
               <div className="text-2xl mb-1 animate-bounce">💫</div>
-              <span className="text-red-500 font-black uppercase text-xs tracking-wider">Đội Đỏ Bị Choáng!</span>
-              <span className="text-zinc-400 text-[10px] font-bold mt-1">Hồi phục sau {leftStunTimer}s...</span>
+              <span className="text-soviet-red font-black uppercase text-xs tracking-wider">Đội Đỏ Bị Choáng!</span>
+              <span className="text-zinc-500 text-[10px] font-bold mt-1">Hồi phục sau {leftStunTimer}s...</span>
             </div>
           )}
         </div>
 
         {/* RIGHT COLUMN: TEAM BLUE */}
-        <div className="flex flex-col bg-zinc-900/10 border border-zinc-800/80 rounded-2xl p-2 relative min-h-0 h-full justify-between shadow-[0_4px_25px_rgba(0,0,0,0.1)]">
+        <div className="flex flex-col bg-white/80 backdrop-blur-md border-2 border-soviet-red/10 rounded-2xl p-2.5 relative min-h-0 h-full justify-between shadow-md">
           {/* Column Header */}
-          <div className="flex justify-between items-center px-1 border-b border-zinc-900/50 pb-1.5 shrink-0">
-            <span className="text-[10px] sm:text-xs font-black text-blue-400 tracking-wider flex items-center gap-1 select-none">
-              🔵 ĐỘI XANH <span className="text-[9px] text-zinc-500 font-bold hidden md:inline">(J,K,L,;)</span>
+          <div className="flex justify-between items-center px-1 border-b border-zinc-200/50 pb-1.5 shrink-0">
+            <span className="text-[10px] sm:text-xs font-black text-blue-600 tracking-wider flex items-center gap-1 select-none">
+              🔵 ĐỘI XANH <span className="text-[9px] text-zinc-400 font-bold hidden md:inline">(J,K,L,;)</span>
             </span>
             {rightFeedback === 'wrong' && (
-              <span className="text-[9px] font-black text-red-400 animate-pulse uppercase select-none">
+              <span className="text-[9px] font-black text-red-600 animate-pulse uppercase select-none">
                 Sai phạt 3s!
               </span>
             )}
@@ -748,16 +778,16 @@ const TugOfWarGame = () => {
                   disabled={answered || rightStunned}
                   onClick={() => handleAnswer('right', idx)}
                   className={`flex items-center gap-2 px-2.5 py-1.5 rounded-xl border text-left font-semibold transition-all relative flex-1 min-h-0 text-xs ${showResult && isCorrect
-                    ? 'border-emerald-500 bg-emerald-500/15 text-emerald-400 shadow-[0_0_12px_rgba(16,185,129,0.1)]'
+                    ? 'border-emerald-500 bg-emerald-500/10 text-emerald-600 font-bold shadow-[0_0_12px_rgba(16,185,129,0.1)]'
                     : showResult && !isCorrect
-                      ? 'border-zinc-800/50 text-zinc-600 opacity-30'
-                      : 'border-zinc-800 text-zinc-300 hover:border-blue-400/50 hover:bg-blue-400/5 hover:text-white'
+                      ? 'border-zinc-100 text-zinc-400 opacity-40 shadow-none pointer-events-none'
+                      : 'bg-white border-zinc-200 text-zinc-700 hover:border-blue-300 hover:bg-blue-50/60 hover:text-blue-600 shadow-sm'
                     }`}
                 >
                   {/* Option Badge */}
                   <span className={`w-5 h-5 rounded text-[10px] font-black flex items-center justify-center shrink-0 select-none ${showResult && isCorrect
-                    ? 'bg-emerald-500 text-zinc-950'
-                    : 'bg-zinc-800 text-zinc-400'
+                    ? 'bg-emerald-500 text-white font-black'
+                    : 'bg-zinc-100 text-zinc-400'
                     }`}>
                     {letter}
                   </span>
@@ -768,7 +798,7 @@ const TugOfWarGame = () => {
                   </span>
 
                   {/* Hotkey Badge */}
-                  <span className="text-[9px] font-mono font-extrabold text-zinc-600 bg-zinc-950 border border-zinc-850 px-1 rounded shrink-0 select-none hidden sm:inline">
+                  <span className="text-[9px] font-mono font-extrabold text-zinc-500 bg-zinc-50 border border-zinc-150 px-1 rounded shrink-0 select-none hidden sm:inline">
                     {hotkey}
                   </span>
                 </button>
@@ -778,10 +808,10 @@ const TugOfWarGame = () => {
 
           {/* Right Stun Overlay */}
           {rightStunned && (
-            <div className="absolute inset-0 bg-zinc-950/80 backdrop-blur-[2px] rounded-2xl flex flex-col items-center justify-center z-20 border border-blue-500/20 select-none">
+            <div className="absolute inset-0 bg-white/90 backdrop-blur-[3px] rounded-2xl flex flex-col items-center justify-center z-20 border-2 border-blue-400/30 shadow-lg select-none">
               <div className="text-2xl mb-1 animate-bounce">💫</div>
-              <span className="text-blue-400 font-black uppercase text-xs tracking-wider">Đội Xanh Bị Choáng!</span>
-              <span className="text-zinc-400 text-[10px] font-bold mt-1">Hồi phục sau {rightStunTimer}s...</span>
+              <span className="text-blue-600 font-black uppercase text-xs tracking-wider">Đội Xanh Bị Choáng!</span>
+              <span className="text-zinc-500 text-[10px] font-bold mt-1">Hồi phục sau {rightStunTimer}s...</span>
             </div>
           )}
         </div>
@@ -789,9 +819,9 @@ const TugOfWarGame = () => {
       </div>
 
       {/* FOOTER RULES (IMAGE RULES) */}
-      <div className="text-center text-[9px] text-zinc-650 uppercase tracking-widest font-black py-0.5 border-t border-zinc-900 flex justify-center gap-6 shrink-0 select-none">
-        <span className="text-emerald-500/80">✅ Trả lời đúng: Kéo dây về phía mình</span>
-        <span className="text-red-500/80">❌ Trả lời sai: Bị đối phương kéo lại</span>
+      <div className="text-center text-[9px] text-zinc-500 uppercase tracking-widest font-black py-1.5 border-t border-zinc-200/60 flex justify-center gap-6 shrink-0 select-none">
+        <span className="text-emerald-600/90">✅ Trả lời đúng: Kéo dây về phía mình</span>
+        <span className="text-soviet-red/90">❌ Trả lời sai: Bị đối phương kéo lại</span>
       </div>
 
     </section>
