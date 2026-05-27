@@ -43,14 +43,14 @@ const fetchReply = async (text) => {
     return data.messages.content;
   }
 
-  return 'Xin lỗi, Bác chưa nhận được câu trả lời từ hệ thống.';
+  return 'Xin lỗi, Bác chưa nhận được câu trả lời.';
 };
 
 const FloatingChatWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [inputValue, setInputValue] = useState('');
   const [messages, setMessages] = useState([
-    { id: 1, role: 'bot', text: 'Xin chào, Bác có thể hỗ trợ các cháu tìm nhanh nội dung trên website này.' },
+    { id: 1, role: 'bot', text: 'Xin chào các cháu, Bác có thể hỗ trợ các cháu về điều gì.'},
   ]);
   const [isSending, setIsSending] = useState(false);
 
@@ -80,7 +80,7 @@ const FloatingChatWidget = () => {
       const botMessage = {
         id: Date.now() + 1,
         role: 'bot',
-        text: 'Hiện tại hệ thống đang bận, các cháu thử lại giúp Bác nhé.',
+        text: 'Hiện tại bác đang bận, các cháu thử lại sau giúp Bác nhé.',
       };
       setMessages((current) => [...current, botMessage]);
     } finally {

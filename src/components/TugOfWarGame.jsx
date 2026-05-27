@@ -593,9 +593,9 @@ const TugOfWarGame = () => {
     );
   }
 
-  // 3. PLAYING STATE (PERFECTLY FITTED TO 1 SCREEN)
+  // 3. PLAYING STATE
   return (
-    <section className="h-screen w-full text-zinc-800 flex flex-col justify-between overflow-hidden pt-24 pb-4 px-4 select-none relative z-10">
+    <section className="min-h-screen w-full text-zinc-800 flex flex-col gap-3 pt-28 pb-8 px-4 select-none relative z-10">
 
       {/* HEADER SECTION */}
       <div className="flex justify-between items-center h-8 px-2 shrink-0">
@@ -662,7 +662,7 @@ const TugOfWarGame = () => {
       </div>
 
       {/* QUESTION AREA */}
-      <div className="bg-white/95 backdrop-blur-md rounded-2xl p-3 border-2 border-soviet-red/10 relative overflow-hidden flex flex-col justify-center min-h-[85px] max-h-[110px] shrink-0 shadow-md">
+      <div className="bg-white/95 backdrop-blur-md rounded-2xl p-3 sm:p-4 border-2 border-soviet-red/10 relative overflow-hidden flex flex-col justify-center min-h-[118px] shrink-0 shadow-md">
 
         {/* Progress Bar & Timer */}
         <div className="flex items-center gap-2 mb-1.5">
@@ -675,7 +675,7 @@ const TugOfWarGame = () => {
 
         {/* Question Text */}
         {currentQuestion && (
-          <p className="text-zinc-800 font-bold text-xs sm:text-sm md:text-[15px] leading-snug text-center line-clamp-3 select-none px-4">
+          <p className="text-zinc-800 font-bold text-sm md:text-[15px] leading-relaxed text-center select-none px-2 sm:px-6">
             {currentQuestion.q}
           </p>
         )}
@@ -687,20 +687,20 @@ const TugOfWarGame = () => {
               initial={{ opacity: 0, y: 5 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
-              className="absolute inset-0 bg-white/95 backdrop-blur-sm flex items-center justify-center z-30"
+              className="absolute inset-x-3 bottom-3 bg-white/95 backdrop-blur-sm border border-zinc-200 rounded-xl px-3 py-2 flex items-center justify-center z-30 shadow-md"
             >
               {roundWinner === 'left' && (
-                <span className="text-soviet-red text-xs sm:text-sm font-black uppercase tracking-widest flex items-center gap-2 select-none animate-pulse">
+                <span className="text-soviet-red text-xs sm:text-sm font-black uppercase tracking-widest flex items-center gap-2 text-center select-none animate-pulse">
                   🎉 Đội Đỏ đã trả lời ĐÚNG! +Lực kéo 🟥
                 </span>
               )}
               {roundWinner === 'right' && (
-                <span className="text-blue-600 text-xs sm:text-sm font-black uppercase tracking-widest flex items-center gap-2 select-none animate-pulse">
+                <span className="text-blue-600 text-xs sm:text-sm font-black uppercase tracking-widest flex items-center gap-2 text-center select-none animate-pulse">
                   🟦 Đội Xanh đã trả lời ĐÚNG! +Lực kéo 🎉
                 </span>
               )}
               {roundWinner === 'timeout' && (
-                <span className="text-soviet-orange text-xs sm:text-sm font-black uppercase tracking-widest select-none">
+                <span className="text-soviet-orange text-xs sm:text-sm font-black uppercase tracking-widest text-center select-none">
                   ⏰ HẾT GIỜ! Câu hỏi tiếp theo...
                 </span>
               )}
@@ -710,10 +710,10 @@ const TugOfWarGame = () => {
       </div>
 
       {/* DUAL OPTION COLUMNS */}
-      <div className="grid grid-cols-2 gap-4 flex-1 min-h-0 py-2">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 py-1">
 
         {/* LEFT COLUMN: TEAM RED */}
-        <div className="flex flex-col bg-white/80 backdrop-blur-md border-2 border-soviet-red/10 rounded-2xl p-2.5 relative min-h-0 h-full justify-between shadow-md">
+        <div className="flex flex-col bg-white/80 backdrop-blur-md border-2 border-soviet-red/10 rounded-2xl p-3 relative min-h-[260px] justify-between shadow-md">
           {/* Column Header */}
           <div className="flex justify-between items-center px-1 border-b border-zinc-200/50 pb-1.5 shrink-0">
             <span className="text-[10px] sm:text-xs font-black text-soviet-red tracking-wider flex items-center gap-1 select-none">
@@ -727,7 +727,7 @@ const TugOfWarGame = () => {
           </div>
 
           {/* Options List */}
-          <div className="flex-1 flex flex-col justify-between gap-1.5 mt-2 min-h-0">
+          <div className="flex flex-col gap-2 mt-3">
             {shuffledOptions.map((opt, idx) => {
               const letter = ['A', 'B', 'C', 'D'][idx];
               const hotkey = ['A', 'S', 'D', 'F'][idx];
@@ -739,7 +739,7 @@ const TugOfWarGame = () => {
                   key={idx}
                   disabled={answered || leftStunned}
                   onClick={() => handleAnswer('left', idx)}
-                  className={`flex items-center gap-2 px-2.5 py-1.5 rounded-xl border text-left font-semibold transition-all relative flex-1 min-h-0 text-xs ${showResult && isCorrect
+                  className={`flex items-start gap-2 px-3 py-2 rounded-xl border text-left font-semibold transition-all relative min-h-[54px] text-xs ${showResult && isCorrect
                     ? 'border-emerald-500 bg-emerald-500/10 text-emerald-600 font-bold shadow-[0_0_12px_rgba(16,185,129,0.1)]'
                     : showResult && !isCorrect
                       ? 'border-zinc-100 text-zinc-400 opacity-40 shadow-none pointer-events-none'
@@ -755,7 +755,7 @@ const TugOfWarGame = () => {
                   </span>
 
                   {/* Option Text */}
-                  <span className="line-clamp-2 leading-snug flex-1 text-[11px] sm:text-xs">
+                  <span className="leading-snug flex-1 text-[12px] sm:text-[13px]">
                     {opt}
                   </span>
 
@@ -779,7 +779,7 @@ const TugOfWarGame = () => {
         </div>
 
         {/* RIGHT COLUMN: TEAM BLUE */}
-        <div className="flex flex-col bg-white/80 backdrop-blur-md border-2 border-soviet-red/10 rounded-2xl p-2.5 relative min-h-0 h-full justify-between shadow-md">
+        <div className="flex flex-col bg-white/80 backdrop-blur-md border-2 border-soviet-red/10 rounded-2xl p-3 relative min-h-[260px] justify-between shadow-md">
           {/* Column Header */}
           <div className="flex justify-between items-center px-1 border-b border-zinc-200/50 pb-1.5 shrink-0">
             <span className="text-[10px] sm:text-xs font-black text-blue-600 tracking-wider flex items-center gap-1 select-none">
@@ -793,7 +793,7 @@ const TugOfWarGame = () => {
           </div>
 
           {/* Options List */}
-          <div className="flex-1 flex flex-col justify-between gap-1.5 mt-2 min-h-0">
+          <div className="flex flex-col gap-2 mt-3">
             {shuffledOptions.map((opt, idx) => {
               const letter = ['A', 'B', 'C', 'D'][idx];
               const hotkey = ['J', 'K', 'L', ';'][idx];
@@ -805,7 +805,7 @@ const TugOfWarGame = () => {
                   key={idx}
                   disabled={answered || rightStunned}
                   onClick={() => handleAnswer('right', idx)}
-                  className={`flex items-center gap-2 px-2.5 py-1.5 rounded-xl border text-left font-semibold transition-all relative flex-1 min-h-0 text-xs ${showResult && isCorrect
+                  className={`flex items-start gap-2 px-3 py-2 rounded-xl border text-left font-semibold transition-all relative min-h-[54px] text-xs ${showResult && isCorrect
                     ? 'border-emerald-500 bg-emerald-500/10 text-emerald-600 font-bold shadow-[0_0_12px_rgba(16,185,129,0.1)]'
                     : showResult && !isCorrect
                       ? 'border-zinc-100 text-zinc-400 opacity-40 shadow-none pointer-events-none'
@@ -821,7 +821,7 @@ const TugOfWarGame = () => {
                   </span>
 
                   {/* Option Text */}
-                  <span className="line-clamp-2 leading-snug flex-1 text-[11px] sm:text-xs">
+                  <span className="leading-snug flex-1 text-[12px] sm:text-[13px]">
                     {opt}
                   </span>
 
