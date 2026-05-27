@@ -349,19 +349,33 @@ const TugOfWarGame = () => {
         const pull = 12 + newCombo * 2;
         setLeftCombo(newCombo);
         setRightCombo(0);
-        setLeftScore(s => s + 1);
         setLeftFeedback('correct');
         setRoundWinner('left');
         setAnswered(true);
+
+        // Increment score and check first-to-5 win condition
+        setLeftScore(s => {
+          const updated = s + 1;
+          if (updated >= 5) {
+            setGamePhase('win_red');
+            playWinSound();
+          }
+          return updated;
+        });
+
+        // Apply rope pull (visual) but keep score-based winning as primary condition
         setRopePosition(prev => {
           const next = prev - pull;
           if (next <= -100) {
-            setGamePhase('win_red');
-            playWinSound();
+            if (gamePhase === 'playing') {
+              setGamePhase('win_red');
+              playWinSound();
+            }
             return -100;
           }
           return next;
         });
+
         playComboSound(newCombo);
         setQuestionsAsked(q => q + 1);
         setTimeout(() => { if (gamePhase === 'playing') nextQuestion(); }, 1500);
@@ -391,19 +405,33 @@ const TugOfWarGame = () => {
         const pull = 12 + newCombo * 2;
         setRightCombo(newCombo);
         setLeftCombo(0);
-        setRightScore(s => s + 1);
         setRightFeedback('correct');
         setRoundWinner('right');
         setAnswered(true);
+
+        // Increment score and check first-to-5 win condition
+        setRightScore(s => {
+          const updated = s + 1;
+          if (updated >= 5) {
+            setGamePhase('win_blue');
+            playWinSound();
+          }
+          return updated;
+        });
+
+        // Apply rope pull (visual) but keep score-based winning as primary condition
         setRopePosition(prev => {
           const next = prev + pull;
           if (next >= 100) {
-            setGamePhase('win_blue');
-            playWinSound();
+            if (gamePhase === 'playing') {
+              setGamePhase('win_blue');
+              playWinSound();
+            }
             return 100;
           }
           return next;
         });
+
         playComboSound(newCombo);
         setQuestionsAsked(q => q + 1);
         setTimeout(() => { if (gamePhase === 'playing') nextQuestion(); }, 1500);
