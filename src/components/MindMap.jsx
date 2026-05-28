@@ -35,7 +35,7 @@ const MindMap = () => {
   return (
     <section className="py-24 px-6 bg-soviet-offwhite overflow-hidden">
       <div className="max-w-7xl mx-auto text-center mb-16">
-        <h2 className="text-4xl md:text-6xl font-bold text-soviet-red mb-6 tracking-tight uppercase">Sơ Đồ Tư Duy</h2>
+        <h2 className="text-4xl md:text-6xl font-bold text-soviet-red mb-6 tracking-tight uppercase italic">Sơ Đồ Tư Duy</h2>
         <div className="h-2 w-24 bg-soviet-gold mx-auto mb-8 rounded-full shadow-sm" />
         <p className="text-zinc-500 text-sm font-bold uppercase tracking-[0.3em]">Di chuột qua các nút để thấy các mối liên hệ chính của bài học</p>
       </div>

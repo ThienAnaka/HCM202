@@ -7,7 +7,6 @@ import LessonToc from './components/LessonToc'
 import TheorySection from './components/TheorySection'
 import TypesOfConnections from './components/TypesOfConnections'
 import DialecticalCategories from './components/DialecticalCategories'
-import PracticalConnections from './components/PracticalConnections'
 import MethodologicalMeaning from './components/MethodologicalMeaning'
 import MindMap from './components/MindMap'
 import Footer from './components/Footer'
@@ -32,9 +31,6 @@ const HomePage = () => (
     </div>
     <div id="dialectics">
       <DialecticalCategories />
-    </div>
-    <div id="cases">
-      <PracticalConnections />
     </div>
     <div id="methodology">
       <MethodologicalMeaning />

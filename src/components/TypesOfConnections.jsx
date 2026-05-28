@@ -65,7 +65,7 @@ const TypesOfConnections = () => {
         >
           <div className="grid md:grid-cols-[1.1fr_0.9fr] gap-10 items-center">
             <div className="text-center md:text-left">
-              <h2 id="theory-nation" className="text-4xl md:text-6xl font-bold text-soviet-red mb-6">
+              <h2 id="theory-nation" className="text-4xl md:text-6xl font-bold text-soviet-red mb-6 italic">
                 Quan điểm của Hồ Chí Minh về chuẩn mực đạo đức
               </h2>
               <p className="text-lg text-zinc-500 max-w-2xl md:max-w-none">
@@ -91,20 +91,12 @@ const TypesOfConnections = () => {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: false }}
               transition={{ delay: idx * 0.1 }}
-              className={`p-8 rounded-2xl border-2 transition-all group cursor-pointer bg-white ${
-                idx === 0 
-                ? 'border-soviet-orange shadow-lg' 
-                : 'border-soviet-red/20 hover:border-soviet-red/50 hover:shadow-md'
-              }`}
+              className="p-8 rounded-2xl border-2 transition-all group cursor-pointer bg-white border-soviet-red/20 hover:border-soviet-red/50 hover:shadow-md"
             >
-              <div className={`w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-6 shadow-sm ${
-                idx === 0 ? 'bg-soviet-red' : 'bg-soviet-orange'
-              }`}>
+              <div className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-6 shadow-sm bg-soviet-orange">
                 <c.icon className="w-7 h-7 text-white" />
               </div>
-              <h3 className={`text-xl font-bold text-center mb-4 ${
-                idx === 0 ? 'text-soviet-orange' : 'text-soviet-red'
-              }`}>
+              <h3 className="text-xl font-bold text-center mb-4 text-soviet-red">
                 {c.title}
               </h3>
               <p className="text-zinc-600 text-center text-sm leading-relaxed">

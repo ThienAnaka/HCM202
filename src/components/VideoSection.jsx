@@ -11,7 +11,7 @@ const VideoSection = () => {
           transition={{ duration: 0.8 }}
           className="mb-20"
         >
-          <h1 className="text-5xl md:text-6xl font-black mb-12 text-soviet-red tracking-tight text-center">
+          <h1 className="text-5xl md:text-6xl font-black mb-12 text-soviet-red tracking-tight text-center italic">
             Tóm Tắt Nội Dung
           </h1>
           <div className="grid md:grid-cols-2 gap-12 items-center mb-16">

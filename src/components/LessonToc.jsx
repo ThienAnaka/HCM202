@@ -31,15 +31,6 @@ const tocItems = [
       'Nói đi đôi với làm; xây đi đôi với chống; tu dưỡng đạo đức suốt đời; kết hợp giáo dục với tự rèn luyện.',
   },
   {
-    title: 'Xây dựng đạo đức',
-    desc: 'Tu dưỡng và rèn luyện đạo đức suốt đời.',
-    href: '/#theory-revolution',
-    image: '/image/Picture7.jpg',
-    imageAlt: 'Minh hoa xay dung dao duc',
-    content:
-      'Đạo đức cách mạng được hình thành qua rèn luyện bền bỉ, tự phê bình, nêu gương và kiên trì sửa chữa khuyết điểm.',
-  },
-  {
     title: 'Ý nghĩa và tóm tắt',
     desc: 'Giá trị và ý nghĩa đối với thế hệ trẻ.',
     href: '/#theory-meaning',
@@ -71,13 +62,13 @@ const LessonToc = () => {
           <div className="inline-block px-4 py-1 rounded-full bg-soviet-red/10 text-soviet-red font-bold text-xs uppercase tracking-widest mb-4">
             Mục lục bài học
           </div>
-          <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tight text-soviet-red">
-            5 phần nội dung chính
+          <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tight text-soviet-red italic">
+            4 phần nội dung chính
           </h2>
           <div className="w-24 h-2 bg-soviet-gold mx-auto mt-6" />
         </motion.div>
 
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-6 md:grid-cols-2 md:auto-rows-fr">
           {tocItems.map((item, index) => (
             <motion.div
               key={item.title}
@@ -90,7 +81,7 @@ const LessonToc = () => {
               <button
                 type="button"
                 onClick={() => setActiveItem(item)}
-                className="text-left block w-full h-full rounded-2xl bg-white border-2 border-zinc-100 p-6 shadow-sm hover:shadow-xl hover:border-soviet-red/40 transition-all"
+                className="text-left block w-full h-full rounded-2xl bg-white border-2 border-zinc-100 p-6 shadow-sm hover:shadow-xl hover:border-soviet-red/40 transition-all flex flex-col"
               >
                 <div className="flex items-center gap-4 mb-4">
                   <div className="w-10 h-10 rounded-full bg-soviet-red text-white flex items-center justify-center font-black italic">
@@ -103,6 +94,7 @@ const LessonToc = () => {
                 <p className="text-sm text-zinc-600 leading-relaxed">
                   {item.desc}
                 </p>
+                <span className="mt-auto" />
               </button>
             </motion.div>
           ))}

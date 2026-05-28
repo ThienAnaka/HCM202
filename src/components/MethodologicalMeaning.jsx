@@ -28,7 +28,7 @@ const MethodologicalMeaning = () => {
           className="flex flex-col md:flex-row gap-16 items-center"
         >
           <div className="w-full md:w-1/2">
-            <h2 id="theory-meaning" className="text-4xl md:text-6xl font-bold text-soviet-red mb-8 uppercase tracking-tighter">
+            <h2 id="theory-meaning" className="text-4xl md:text-6xl font-bold text-soviet-red mb-8 uppercase tracking-tighter italic">
               Ý Nghĩa
             </h2>
             <div className="h-2 w-24 bg-soviet-gold mb-8 shadow-sm" />

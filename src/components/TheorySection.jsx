@@ -49,7 +49,7 @@ const TheorySection = () => {
         >
           <div className="grid md:grid-cols-[1.1fr_0.9fr] gap-10 items-center">
             <div className="text-center md:text-left">
-              <h2 id="theory-class" className="text-3xl md:text-5xl font-bold text-zinc-900 mb-6 tracking-tight">Đạo đức là gốc của người cách mạng</h2>
+              <h2 id="theory-class" className="text-3xl md:text-5xl font-bold text-soviet-red mb-6 tracking-tight italic">Đạo đức là gốc của người cách mạng</h2>
               <p className="text-zinc-600 max-w-2xl md:max-w-none text-lg leading-relaxed">
                 Đạo đức là nền tảng và sức mạnh nội sinh giúp người cách mạng vượt qua mọi khó khăn, thử thách.và là yếu tố quyết định sự thành công của cách mạng
               </p>
@@ -65,7 +65,7 @@ const TheorySection = () => {
           </div>
         </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-2 gap-8">
           {theories.map((theory, idx) => (
             <motion.div
               key={idx}
@@ -73,7 +73,7 @@ const TheorySection = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: idx * 0.2 }}
-              className="glow-card p-8 rounded-xl group border-t-4 border-t-soviet-red shadow-lg"
+              className="glow-card p-8 rounded-xl group border-2 border-soviet-red/20 shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:border-soviet-red/60"
             >
               <div className="mb-6 transform transition-transform group-hover:scale-110 duration-300 p-3 bg-soviet-red/5 rounded-lg w-fit">
                 {theory.icon}
@@ -85,7 +85,7 @@ const TheorySection = () => {
               <img
                 src={theory.imageSrc}
                 alt={theory.imageAlt}
-                className="mt-6 w-full rounded-2xl border border-zinc-200 shadow-md object-cover aspect-[4/3]"
+                className="mt-6 w-full rounded-2xl border border-zinc-200 shadow-md object-cover aspect-[4/3] transition-transform duration-300 group-hover:scale-[1.02]"
                 loading="lazy"
               />
             </motion.div>

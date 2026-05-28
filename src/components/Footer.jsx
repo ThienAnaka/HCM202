@@ -33,7 +33,7 @@ const Footer = () => {
               { name: 'Lý thuyết', id: 'theory' },
               { name: 'Kết nối', id: 'connections' },
               { name: 'Quan hệ', id: 'dialectics' },
-              { name: 'Thực tiễn', id: 'cases' }
+              { name: 'Phương pháp', id: 'methodology' }
             ].map(item => (
               <a 
                 key={item.id} 

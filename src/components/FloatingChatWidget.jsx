@@ -112,8 +112,8 @@ const FloatingChatWidget = () => {
                   <Bot className="h-5 w-5" />
                 </div>
                 <div>
-                  <p className="text-sm font-black uppercase tracking-[0.2em]">Chat hỗ trợ</p>
-                  <p className="text-[11px] text-white/80">Trả lời nhanh nội dung website</p>
+                  <p className="text-sm font-black uppercase tracking-[0.2em]">Chủ Tịch Hồ Chí Minh</p>
+                  <p className="text-[11px] text-white/80">Bác sẽ giải đáp thắc mắc của các cháu</p>
                 </div>
               </div>
               <button

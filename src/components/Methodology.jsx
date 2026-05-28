@@ -23,7 +23,7 @@ const Methodology = () => {
       <div className="max-w-4xl mx-auto">
         <div className="flex flex-col md:flex-row gap-16 items-center">
           <div className="w-full md:w-1/2">
-            <h2 className="text-3xl md:text-5xl font-bold text-zinc-900 mb-8 tracking-tight">Phương Pháp Luận</h2>
+            <h2 className="text-3xl md:text-5xl font-bold text-soviet-red mb-8 tracking-tight italic">Phương Pháp Luận</h2>
             <div className="h-2 w-20 bg-soviet-gold mb-8 shadow-sm" />
             <p className="text-zinc-600 mb-8 leading-relaxed text-lg">
               Để vận dụng bài học giai cấp và dân tộc, cần có cách nhìn toàn diện, lịch sử - cụ thể và biết xác định trọng tâm hành động.
