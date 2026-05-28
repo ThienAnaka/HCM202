@@ -10,6 +10,9 @@ export default defineConfig({
         target: 'http://109.237.69.169',
         changeOrigin: true,
         secure: false,
+        headers: {
+          Authorization: 'Basic bXRuX2FpOjEzMDIwNQ==',
+        },
       },
     },
   },
