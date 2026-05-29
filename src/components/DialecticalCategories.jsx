@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Scale, ShieldCheck, Users2, Landmark } from 'lucide-react';
 
@@ -38,6 +38,16 @@ const items = [
 ];
 
 const DialecticalCategories = () => {
+  const [openIndexes, setOpenIndexes] = useState([]);
+
+  const handleToggle = (index) => {
+    setOpenIndexes((current) =>
+      current.includes(index)
+        ? current.filter((value) => value !== index)
+        : [...current, index]
+    );
+  };
+
   return (
     <section className="py-24 px-6 bg-zinc-50">
       <div className="max-w-7xl mx-auto">
@@ -67,9 +77,11 @@ const DialecticalCategories = () => {
           </div>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-8">
+        <div className="grid md:grid-cols-2 gap-8 items-start">
           {items.map((item, index) => {
             const Icon = item.icon;
+            const isOpen = openIndexes.includes(index);
+
             return (
               <motion.div
                 key={item.title}
@@ -77,23 +89,47 @@ const DialecticalCategories = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="bg-white rounded-3xl border-2 border-zinc-100 p-8 shadow-sm hover:shadow-2xl hover:border-soviet-red/30 transition-all duration-500"
+                className="bg-white rounded-3xl border-2 border-zinc-100 shadow-sm hover:shadow-2xl hover:border-soviet-red/30 transition-all duration-500"
               >
-                <div className="w-14 h-14 rounded-2xl bg-soviet-red/10 text-soviet-red flex items-center justify-center mb-6">
-                  <Icon className="w-7 h-7" />
+                <button
+                  type="button"
+                  onClick={() => handleToggle(index)}
+                  className="w-full p-8 text-left flex items-center justify-between gap-4"
+                  aria-expanded={isOpen}
+                  aria-controls={`dialectic-panel-${index}`}
+                >
+                  <div className="flex items-center gap-4">
+                    <div className="w-14 h-14 rounded-2xl bg-soviet-red/10 text-soviet-red flex items-center justify-center">
+                      <Icon className="w-7 h-7" />
+                    </div>
+                    <h3 id={item.id} className="text-2xl font-black text-zinc-800 uppercase tracking-tight">
+                      {item.title}
+                    </h3>
+                  </div>
+                  <span
+                    className={`text-soviet-red text-2xl font-semibold transition-transform duration-300 ${isOpen ? 'rotate-45' : ''}`}
+                    aria-hidden="true"
+                  >
+                    +
+                  </span>
+                </button>
+
+                <div
+                  id={`dialectic-panel-${index}`}
+                  className={`overflow-hidden transition-all duration-300 ${isOpen ? 'max-h-[700px] opacity-100' : 'max-h-0 opacity-0'}`}
+                >
+                  <div className="px-8 pb-8">
+                    <p className="text-zinc-600 text-sm leading-relaxed font-medium">
+                      {item.desc}
+                    </p>
+                    <img
+                      src={item.imageSrc}
+                      alt={item.imageAlt}
+                      className="mt-6 w-full rounded-2xl border border-zinc-200 shadow-md object-cover aspect-[4/3]"
+                      loading="lazy"
+                    />
+                  </div>
                 </div>
-                <h3 id={item.id} className="text-2xl font-black text-zinc-800 mb-4 uppercase tracking-tight">
-                  {item.title}
-                </h3>
-                <p className="text-zinc-600 text-sm leading-relaxed font-medium">
-                  {item.desc}
-                </p>
-                <img
-                  src={item.imageSrc}
-                  alt={item.imageAlt}
-                  className="mt-6 w-full rounded-2xl border border-zinc-200 shadow-md object-cover aspect-[4/3]"
-                  loading="lazy"
-                />
               </motion.div>
             );
           })}

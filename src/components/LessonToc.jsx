@@ -7,7 +7,7 @@ const tocItems = [
     title: 'Đạo đức là gì?',
     desc: 'Đạo đức là gốc của người cách mạng.',
     href: '/#theory-class',
-    image: '/image/image.png',
+    image: '/image/HCM.png',
     imageAlt: 'Minh hoa dao duc la goc',
     content:
       'Đạo đức là nền tảng tạo nên nhân cách, đặc biệt với cán bộ, đảng viên. Người nhấn mạnh đức là gốc, tạo sức mạnh nội sinh giúp vượt qua khó khăn và hoàn thành nhiệm vụ.',

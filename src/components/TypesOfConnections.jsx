@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { MapPinned, Languages, BadgeCheck, PartyPopper } from 'lucide-react';
 
@@ -54,6 +54,16 @@ const connections = [
 ];
 
 const TypesOfConnections = () => {
+  const [openIndexes, setOpenIndexes] = useState([]);
+
+  const handleToggle = (index) => {
+    setOpenIndexes((current) =>
+      current.includes(index)
+        ? current.filter((value) => value !== index)
+        : [...current, index]
+    );
+  };
+
   return (
     <section className="py-24 px-6 bg-white">
       <div className="max-w-7xl mx-auto">
@@ -83,33 +93,61 @@ const TypesOfConnections = () => {
           </div>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {connections.map((c, idx) => (
-            <motion.div
-              key={idx}
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: false }}
-              transition={{ delay: idx * 0.1 }}
-              className="p-8 rounded-2xl border-2 transition-all group cursor-pointer bg-white border-soviet-red/20 hover:border-soviet-red/50 hover:shadow-md"
-            >
-              <div className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-6 shadow-sm bg-soviet-orange">
-                <c.icon className="w-7 h-7 text-white" />
-              </div>
-              <h3 className="text-xl font-bold text-center mb-4 text-soviet-red">
-                {c.title}
-              </h3>
-              <p className="text-zinc-600 text-center text-sm leading-relaxed">
-                {c.desc}
-              </p>
-              <img
-                src={c.imageSrc}
-                alt={c.imageAlt}
-                className="mt-6 w-full rounded-2xl border border-zinc-200 shadow-md object-cover aspect-[4/3]"
-                loading="lazy"
-              />
-            </motion.div>
-          ))}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 items-start">
+          {connections.map((c, idx) => {
+            const isOpen = openIndexes.includes(idx);
+
+            return (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: false }}
+                transition={{ delay: idx * 0.1 }}
+                className="rounded-2xl border-2 transition-all bg-white border-soviet-red/20 hover:border-soviet-red/50 hover:shadow-md"
+              >
+                <button
+                  type="button"
+                  onClick={() => handleToggle(idx)}
+                  className="w-full p-8 text-left flex items-center justify-between gap-4"
+                  aria-expanded={isOpen}
+                  aria-controls={`connection-panel-${idx}`}
+                >
+                  <div className="flex items-center gap-4">
+                    <div className="w-14 h-14 rounded-full flex items-center justify-center shadow-sm bg-soviet-orange">
+                      <c.icon className="w-7 h-7 text-white" />
+                    </div>
+                    <h3 className="text-xl font-bold text-soviet-red">
+                      {c.title}
+                    </h3>
+                  </div>
+                  <span
+                    className={`text-soviet-red text-2xl font-semibold transition-transform duration-300 ${isOpen ? 'rotate-45' : ''}`}
+                    aria-hidden="true"
+                  >
+                    +
+                  </span>
+                </button>
+
+                <div
+                  id={`connection-panel-${idx}`}
+                  className={`overflow-hidden transition-all duration-300 ${isOpen ? 'max-h-[700px] opacity-100' : 'max-h-0 opacity-0'}`}
+                >
+                  <div className="px-8 pb-8">
+                    <p className="text-zinc-600 text-sm leading-relaxed">
+                      {c.desc}
+                    </p>
+                    <img
+                      src={c.imageSrc}
+                      alt={c.imageAlt}
+                      className="mt-6 w-full rounded-2xl border border-zinc-200 shadow-md object-cover aspect-[4/3]"
+                      loading="lazy"
+                    />
+                  </div>
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>

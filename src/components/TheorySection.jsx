@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Users, Scale, Factory, Swords } from 'lucide-react';
 
@@ -38,6 +38,16 @@ const theories = [
 ];
 
 const TheorySection = () => {
+  const [openIndexes, setOpenIndexes] = useState([]);
+
+  const handleToggle = (index) => {
+    setOpenIndexes((current) =>
+      current.includes(index)
+        ? current.filter((value) => value !== index)
+        : [...current, index]
+    );
+  };
+
   return (
     <section className="py-24 px-6 bg-white">
       <div className="max-w-6xl mx-auto">
@@ -65,31 +75,59 @@ const TheorySection = () => {
           </div>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-8">
-          {theories.map((theory, idx) => (
-            <motion.div
-              key={idx}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: idx * 0.2 }}
-              className="glow-card p-8 rounded-xl group border-2 border-soviet-red/20 shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:border-soviet-red/60"
-            >
-              <div className="mb-6 transform transition-transform group-hover:scale-110 duration-300 p-3 bg-soviet-red/5 rounded-lg w-fit">
-                {theory.icon}
-              </div>
-              <h3 className="text-xl font-bold text-zinc-900 mb-4 tracking-wide">{theory.title}</h3>
-              <p className="text-zinc-600 leading-relaxed">
-                {theory.description}
-              </p>
-              <img
-                src={theory.imageSrc}
-                alt={theory.imageAlt}
-                className="mt-6 w-full rounded-2xl border border-zinc-200 shadow-md object-cover aspect-[4/3] transition-transform duration-300 group-hover:scale-[1.02]"
-                loading="lazy"
-              />
-            </motion.div>
-          ))}
+        <div className="grid md:grid-cols-2 gap-8 items-start">
+          {theories.map((theory, idx) => {
+            const isOpen = openIndexes.includes(idx);
+
+            return (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.2 }}
+                className="glow-card rounded-xl border-2 border-soviet-red/20 shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:border-soviet-red/60"
+              >
+                <button
+                  type="button"
+                  onClick={() => handleToggle(idx)}
+                  className="w-full p-8 text-left flex items-center justify-between gap-4"
+                  aria-expanded={isOpen}
+                  aria-controls={`theory-panel-${idx}`}
+                >
+                  <div className="flex items-center gap-4">
+                    <div className="transform transition-transform group-hover:scale-110 duration-300 p-3 bg-soviet-red/5 rounded-lg">
+                      {theory.icon}
+                    </div>
+                    <h3 className="text-xl font-bold text-zinc-900 tracking-wide">{theory.title}</h3>
+                  </div>
+                  <span
+                    className={`text-soviet-red text-2xl font-semibold transition-transform duration-300 ${isOpen ? 'rotate-45' : ''}`}
+                    aria-hidden="true"
+                  >
+                    +
+                  </span>
+                </button>
+
+                <div
+                  id={`theory-panel-${idx}`}
+                  className={`overflow-hidden transition-all duration-300 ${isOpen ? 'max-h-[700px] opacity-100' : 'max-h-0 opacity-0'}`}
+                >
+                  <div className="px-8 pb-8">
+                    <p className="text-zinc-600 leading-relaxed">
+                      {theory.description}
+                    </p>
+                    <img
+                      src={theory.imageSrc}
+                      alt={theory.imageAlt}
+                      className="mt-6 w-full rounded-2xl border border-zinc-200 shadow-md object-cover aspect-[4/3] transition-transform duration-300"
+                      loading="lazy"
+                    />
+                  </div>
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>
