@@ -4,6 +4,7 @@ import { ArrowLeft, Trophy, Skull, Zap, Timer, ShieldAlert, Star, RotateCcw, Awa
 import { Link } from 'react-router-dom';
 import QUESTIONS from './tugofwar/questions';
 import { playStunSound, playComboSound, playWinSound, playLoseSound } from './tugofwar/soundEffects';
+import { MAX_QUESTIONS_PER_GAME, resolveGamePhaseAfterRound } from './tugofwar/gameRules';
 
 /* ───── helpers ───── */
 const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
@@ -248,6 +249,32 @@ const TugOfWarGame = () => {
 
   const timerRef = useRef(null);
 
+  const finishRound = (nextRopePosition) => {
+    const nextQuestionsAsked = questionsAsked + 1;
+    const nextPhase = resolveGamePhaseAfterRound({
+      nextQuestionsAsked,
+      ropePosition: nextRopePosition,
+    });
+
+    setQuestionsAsked(nextQuestionsAsked);
+
+    if (nextPhase !== 'playing') {
+      const finishGame = () => {
+        setGamePhase(nextPhase);
+        if (nextPhase !== 'draw') playWinSound();
+      };
+
+      if (Math.abs(nextRopePosition) >= 100) {
+        finishGame();
+      } else {
+        setTimeout(finishGame, 1500);
+      }
+      return;
+    }
+
+    setTimeout(() => nextQuestion(), 1500);
+  };
+
   /* ── pick next question ── */
   const nextQuestion = useCallback(() => {
     const { item, idx } = pick(QUESTIONS, usedQuestions);
@@ -279,6 +306,10 @@ const TugOfWarGame = () => {
     setLeftStunTimer(0);
     setRightStunTimer(0);
     setUsedQuestions(new Set());
+    setCurrentQuestion(null);
+    setShuffledOptions([]);
+    setCorrectShuffledIdx(0);
+    setQuestionTimer(TIMER_DURATION);
     setLeftFeedback(null);
     setRightFeedback(null);
     setRoundWinner(null);
@@ -353,48 +384,25 @@ const TugOfWarGame = () => {
         setRoundWinner('left');
         setAnswered(true);
 
-        // Increment score and check first-to-5 win condition
-        setLeftScore(s => {
-          const updated = s + 1;
-          if (updated >= 5) {
-            setGamePhase('win_red');
-            playWinSound();
-          }
-          return updated;
-        });
+        setLeftScore(s => s + 1);
 
-        // Apply rope pull (visual) but keep score-based winning as primary condition
-        setRopePosition(prev => {
-          const next = prev - pull;
-          if (next <= -100) {
-            if (gamePhase === 'playing') {
-              setGamePhase('win_red');
-              playWinSound();
-            }
-            return -100;
-          }
-          return next;
-        });
+        const nextRopePosition = clamp(ropePosition - pull, -100, 100);
+        setRopePosition(nextRopePosition);
 
         playComboSound(newCombo);
-        setQuestionsAsked(q => q + 1);
-        setTimeout(() => { if (gamePhase === 'playing') nextQuestion(); }, 1500);
+        finishRound(nextRopePosition);
       } else {
         // Red Team got it wrong!
         setLeftCombo(0);
         setLeftFeedback('wrong');
+        setRoundWinner('left_wrong');
+        setAnswered(true);
         setLeftStunned(true);
         setLeftStunTimer(3);
-        setRopePosition(prev => {
-          const next = prev + 10; // penalty: pulled towards opponent (right)
-          if (next >= 100) {
-            setGamePhase('win_blue');
-            playWinSound();
-            return 100;
-          }
-          return next;
-        });
+        const nextRopePosition = clamp(ropePosition + 10, -100, 100);
+        setRopePosition(nextRopePosition);
         playStunSound();
+        finishRound(nextRopePosition);
       }
     } else {
       // Blue Team (Right)
@@ -409,48 +417,25 @@ const TugOfWarGame = () => {
         setRoundWinner('right');
         setAnswered(true);
 
-        // Increment score and check first-to-5 win condition
-        setRightScore(s => {
-          const updated = s + 1;
-          if (updated >= 5) {
-            setGamePhase('win_blue');
-            playWinSound();
-          }
-          return updated;
-        });
+        setRightScore(s => s + 1);
 
-        // Apply rope pull (visual) but keep score-based winning as primary condition
-        setRopePosition(prev => {
-          const next = prev + pull;
-          if (next >= 100) {
-            if (gamePhase === 'playing') {
-              setGamePhase('win_blue');
-              playWinSound();
-            }
-            return 100;
-          }
-          return next;
-        });
+        const nextRopePosition = clamp(ropePosition + pull, -100, 100);
+        setRopePosition(nextRopePosition);
 
         playComboSound(newCombo);
-        setQuestionsAsked(q => q + 1);
-        setTimeout(() => { if (gamePhase === 'playing') nextQuestion(); }, 1500);
+        finishRound(nextRopePosition);
       } else {
         // Blue Team got it wrong!
         setRightCombo(0);
         setRightFeedback('wrong');
+        setRoundWinner('right_wrong');
+        setAnswered(true);
         setRightStunned(true);
         setRightStunTimer(3);
-        setRopePosition(prev => {
-          const next = prev - 10; // penalty: pulled towards opponent (left)
-          if (next <= -100) {
-            setGamePhase('win_red');
-            playWinSound();
-            return -100;
-          }
-          return next;
-        });
+        const nextRopePosition = clamp(ropePosition - 10, -100, 100);
+        setRopePosition(nextRopePosition);
         playStunSound();
+        finishRound(nextRopePosition);
       }
     }
   };
@@ -460,9 +445,8 @@ const TugOfWarGame = () => {
     setRightCombo(0);
     setAnswered(true);
     setRoundWinner('timeout');
-    setQuestionsAsked(q => q + 1);
     playStunSound();
-    setTimeout(() => { if (gamePhase === 'playing') nextQuestion(); }, 1500);
+    finishRound(ropePosition);
   };
 
   /* ── keyboard listener ── */
@@ -487,7 +471,7 @@ const TugOfWarGame = () => {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [gamePhase, answered, leftStunned, rightStunned, correctShuffledIdx, leftCombo, rightCombo]);
+  }, [gamePhase, answered, leftStunned, rightStunned, correctShuffledIdx, leftCombo, rightCombo, ropePosition, questionsAsked]);
 
   /* ───── RENDER ───── */
 
@@ -530,6 +514,16 @@ const TugOfWarGame = () => {
               </div>
             </div>
 
+            <div className="max-w-lg mx-auto mb-8 bg-white border border-zinc-200 rounded-2xl p-5 text-left text-xs shadow-sm">
+              <strong className="text-zinc-800 block text-sm uppercase mb-2">Điều kiện thắng</strong>
+              <div className="flex flex-col gap-1.5 text-zinc-600">
+                <span>Trận đấu có tối đa <b className="text-soviet-red">20 câu hỏi</b>.</span>
+                <span>Mỗi câu kết thúc khi có đội trả lời đúng, trả lời sai hoặc hết giờ.</span>
+                <span>Hết 20 câu, đội nào kéo dây lệch về phía mình nhiều hơn sẽ chiến thắng.</span>
+                <span>Nếu dây chạm biên trước câu 20, đội kéo được dây chạm biên thắng ngay.</span>
+              </div>
+            </div>
+
             <button
               onClick={startGame}
               className="px-10 py-4 bg-soviet-red hover:bg-soviet-orange text-white font-black uppercase tracking-[0.25em] rounded-full shadow-lg shadow-soviet-red/20 hover:scale-105 active:scale-95 transition-all text-base border-2 border-soviet-gold/30"
@@ -543,6 +537,54 @@ const TugOfWarGame = () => {
   }
 
   // 2. WIN STATE
+  if (gamePhase === 'draw') {
+    return (
+      <section className="min-h-screen pt-32 pb-16 px-4 flex flex-col items-center justify-center">
+        <motion.div
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          className="text-center max-w-md w-full bg-white/90 backdrop-blur-md border-2 border-zinc-200 p-8 rounded-3xl shadow-2xl relative overflow-hidden"
+        >
+          <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-soviet-red via-soviet-gold to-blue-600" />
+
+          <div className="text-6xl mb-4">🤝</div>
+          <h2 className="text-3xl font-black uppercase mb-2 text-zinc-800">
+            Hai đội hòa nhau!
+          </h2>
+          <p className="text-zinc-600 mb-6 text-sm font-medium">
+            Sau {MAX_QUESTIONS_PER_GAME} câu, dây vẫn ở chính giữa nên chưa đội nào kéo lệch hơn.
+          </p>
+
+          <div className="grid grid-cols-2 gap-4 my-6">
+            <div className="bg-soviet-red/5 border border-soviet-red/20 rounded-2xl p-4 text-center">
+              <div className="text-2xl font-black text-soviet-red">{leftScore}</div>
+              <div className="text-[9px] text-zinc-500 uppercase tracking-widest font-black">Số câu đúng Đỏ</div>
+            </div>
+            <div className="bg-blue-50/60 border border-blue-100 rounded-2xl p-4 text-center">
+              <div className="text-2xl font-black text-blue-600">{rightScore}</div>
+              <div className="text-[9px] text-zinc-500 uppercase tracking-widest font-black">Số câu đúng Xanh</div>
+            </div>
+          </div>
+
+          <div className="flex gap-4 justify-center">
+            <button
+              onClick={startGame}
+              className="px-8 py-3.5 bg-soviet-gold hover:bg-soviet-orange text-zinc-900 font-black uppercase tracking-wider text-xs rounded-full hover:scale-105 active:scale-95 transition-all flex items-center gap-1.5 shadow-md border border-soviet-gold"
+            >
+              <RotateCcw className="w-4 h-4" /> Chơi lại
+            </button>
+            <Link
+              to="/"
+              className="px-8 py-3.5 bg-zinc-100 hover:bg-zinc-200 text-zinc-800 font-black uppercase tracking-wider text-xs rounded-full hover:scale-105 active:scale-95 transition-all flex items-center justify-center border border-zinc-200"
+            >
+              Trang chủ
+            </Link>
+          </div>
+        </motion.div>
+      </section>
+    );
+  }
+
   if (gamePhase === 'win_red' || gamePhase === 'win_blue') {
     const redWon = gamePhase === 'win_red';
     return (
@@ -625,7 +667,7 @@ const TugOfWarGame = () => {
           </div>
 
           <span className="text-[10px] text-zinc-450 uppercase tracking-[0.2em] font-black hidden sm:inline">
-            Sân Thi Đấu
+            Câu {Math.min(questionsAsked + 1, MAX_QUESTIONS_PER_GAME)}/{MAX_QUESTIONS_PER_GAME}
           </span>
 
           <div className="flex items-center gap-2">
@@ -702,6 +744,16 @@ const TugOfWarGame = () => {
               {roundWinner === 'timeout' && (
                 <span className="text-soviet-orange text-xs sm:text-sm font-black uppercase tracking-widest text-center select-none">
                   ⏰ HẾT GIỜ! Câu hỏi tiếp theo...
+                </span>
+              )}
+              {roundWinner === 'left_wrong' && (
+                <span className="text-blue-600 text-xs sm:text-sm font-black uppercase tracking-widest text-center select-none">
+                  Đội Đỏ trả lời sai! Đáp án đúng: {shuffledOptions[correctShuffledIdx]}
+                </span>
+              )}
+              {roundWinner === 'right_wrong' && (
+                <span className="text-soviet-red text-xs sm:text-sm font-black uppercase tracking-widest text-center select-none">
+                  Đội Xanh trả lời sai! Đáp án đúng: {shuffledOptions[correctShuffledIdx]}
                 </span>
               )}
             </motion.div>
