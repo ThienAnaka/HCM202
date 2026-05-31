@@ -21,7 +21,211 @@ const QUESTIONS = [
   { q: "Trong bối cảnh mạng xã hội hiện nay, điều nào phản ánh đúng nhất tinh thần “tự phê bình và phê bình” theo tư tưởng Hồ Chí Minh?", options: ["Công khai chỉ trích người khác để tạo áp lực dư luận", "Tránh góp ý để giữ hòa khí trong tập thể", "Chỉ tiếp nhận góp ý từ người có vị trí cao hơn mình", "Dám nhìn nhận thiếu sót của bản thân và góp ý với mục đích xây dựng"], correct: 3 },
   { q: "Một sinh viên tham gia hoạt động tình nguyện rất tích cực nhưng chủ yếu để xây dựng hồ sơ cá nhân và tạo hình ảnh trên mạng xã hội. Nếu đánh giá theo tư tưởng Hồ Chí Minh, điều gì phản ánh đúng nhất bản chất của vấn đề?", options: ["Hoạt động xã hội quan trọng hơn động cơ cá nhân", "Đây là xu hướng bình thường của thời đại số", "Kết quả đạt được cho cộng đồng là yếu tố duy nhất cần quan tâm", "Giá trị đạo đức bị giảm sút khi hành động thiếu sự chân thành và động cơ đúng đắn"], correct: 3 },
   { q: "Trong tác phẩm “Sửa đổi lối làm việc” (1947), Hồ Chí Minh phê phán bệnh “nói mà không làm”. Liên hệ với sinh viên hiện nay, biểu hiện nào dưới đây phù hợp nhất với điều Người muốn cảnh báo?", options: ["Đề cao lý tưởng sống nhưng thiếu kỹ năng mềm", "Có quan điểm cá nhân khác với số đông", "Chỉ tập trung học chuyên môn mà ít tham gia hoạt động xã hội", "Thường xuyên chia sẻ quan điểm tích cực về học tập và phát triển bản thân nhưng lại thiếu kỷ luật trong hành động thực tế"], correct: 3 },
-  { q: "Một sinh viên cho rằng: “Miễn mình không ảnh hưởng trực tiếp đến ai thì việc sống thờ ơ với vấn đề chung của tập thể cũng không có gì sai.” Theo tư tưởng Hồ Chí Minh, hạn chế lớn nhất trong nhận thức này là gì?", options: ["Chưa hiểu đúng vai trò của pháp luật trong xã hội", "Đề cao tự do cá nhân hơn năng lực chuyên môn", "Xem nhẹ ảnh hưởng của mạng xã hội đối với giới trẻ", "Tách rời trách nhiệm cá nhân khỏi mối quan hệ với cộng đồng và tập thể"], correct: 3 }
+  { q: "Một sinh viên cho rằng: “Miễn mình không ảnh hưởng trực tiếp đến ai thì việc sống thờ ơ với vấn đề chung của tập thể cũng không có gì sai.” Theo tư tưởng Hồ Chí Minh, hạn chế lớn nhất trong nhận thức này là gì?", options: ["Chưa hiểu đúng vai trò của pháp luật trong xã hội", "Đề cao tự do cá nhân hơn năng lực chuyên môn", "Xem nhẹ ảnh hưởng của mạng xã hội đối với giới trẻ", "Tách rời trách nhiệm cá nhân khỏi mối quan hệ với cộng đồng và tập thể"], correct: 3 },
+  [
+  {
+    q: "Một sinh viên luôn cố gắng đạt điểm cao nhưng thường xuyên gian lận trong kiểm tra vì cho rằng kết quả quan trọng hơn quá trình. Theo tư tưởng Hồ Chí Minh về đạo đức, sai lầm cốt lõi là gì?",
+    options: ["Đặt lợi ích tập thể lên trên lợi ích cá nhân", "Coi nhẹ sự trung thực và phẩm chất đạo đức trong học tập", "Chưa phát huy tinh thần đoàn kết", "Thiếu kỹ năng quản lý thời gian"],
+    correct: 1
+  },
+  {
+    q: "Một cán bộ cho rằng chỉ cần giỏi chuyên môn thì không cần quan tâm nhiều đến việc rèn luyện đạo đức. Theo Hồ Chí Minh, nhận định này chưa đúng vì sao?",
+    options: ["Đạo đức và tài năng phải được phát triển hài hòa", "Chuyên môn không quan trọng bằng chính trị", "Đạo đức chỉ cần thiết với người lãnh đạo", "Tài năng luôn quyết định mọi thành công"],
+    correct: 0
+  },
+  {
+    q: "Một người thường xuyên tham gia hoạt động thiện nguyện nhưng chỉ nhằm mục đích được khen ngợi và nổi tiếng. Theo tư tưởng Hồ Chí Minh, hành động này còn hạn chế ở điểm nào?",
+    options: ["Thiếu tinh thần quốc tế", "Chưa thực hành cần kiệm", "Động cơ hành động chưa xuất phát từ lợi ích chung và sự chân thành", "Chưa có đủ năng lực tổ chức"],
+    correct: 2
+  },
+  {
+    q: "Theo tư tưởng Hồ Chí Minh, phẩm chất nào dưới đây là nền tảng quan trọng để xây dựng đạo đức cách mạng?",
+    options: ["Danh tiếng cá nhân", "Lòng trung thành với lợi ích của nhân dân và đất nước", "Khả năng thuyết trình", "Trình độ ngoại ngữ"],
+    correct: 1
+  },
+  {
+    q: "Một người cho rằng chỉ cần không vi phạm pháp luật là đã đủ để được xem là có đạo đức. Theo Hồ Chí Minh, nhận thức này thiếu sót ở điểm nào?",
+    options: ["Đạo đức đòi hỏi sự tự giác rèn luyện vượt lên trên yêu cầu tối thiểu của pháp luật", "Pháp luật không có vai trò trong xã hội", "Đạo đức chỉ áp dụng với cán bộ", "Đạo đức phụ thuộc hoàn toàn vào phong tục"],
+    correct: 0
+  },
+  {
+    q: "Một cán bộ thường xuyên nhận thành tích về mình nhưng đổ lỗi cho tập thể khi xảy ra sai sót. Theo tư tưởng Hồ Chí Minh, biểu hiện này phản ánh điều gì?",
+    options: ["Tinh thần trách nhiệm cao", "Chủ nghĩa cá nhân", "Tính sáng tạo", "Tinh thần tự phê bình"],
+    correct: 1
+  },
+  {
+    q: "Theo Hồ Chí Minh, vì sao đạo đức cách mạng không phải là điều có sẵn?",
+    options: ["Vì phụ thuộc vào hoàn cảnh kinh tế", "Vì chỉ được hình thành qua giáo dục nhà trường", "Vì phải được rèn luyện bền bỉ trong thực tiễn hằng ngày", "Vì chỉ xuất hiện ở người lớn tuổi"],
+    correct: 2
+  },
+  {
+    q: "Một sinh viên tích cực tham gia phong trào nhưng luôn coi thường ý kiến đóng góp của người khác. Theo tư tưởng Hồ Chí Minh, hạn chế lớn nhất là gì?",
+    options: ["Thiếu tinh thần dân chủ và tôn trọng tập thể", "Thiếu kiến thức chuyên môn", "Thiếu kỹ năng lãnh đạo", "Thiếu điều kiện vật chất"],
+    correct: 0
+  },
+  {
+    q: "Theo tư tưởng Hồ Chí Minh, phẩm chất 'kiệm' được hiểu đúng nhất là gì?",
+    options: ["Tiêu dùng càng ít càng tốt", "Tích lũy tài sản cho cá nhân", "Sử dụng hợp lý thời gian, tiền bạc và nguồn lực, tránh lãng phí", "Không tham gia các hoạt động xã hội"],
+    correct: 2
+  },
+  {
+    q: "Một người luôn muốn được giao việc nhẹ và né tránh nhiệm vụ khó khăn. Theo Hồ Chí Minh, đây là biểu hiện trái với phẩm chất nào?",
+    options: ["Chí công vô tư", "Tinh thần quốc tế", "Hiếu học", "Khiêm tốn"],
+    correct: 0
+  },
+  {
+    q: "Theo tư tưởng Hồ Chí Minh, mục tiêu cuối cùng của việc tu dưỡng đạo đức là gì?",
+    options: ["Được xã hội tôn vinh", "Đạt địa vị cao", "Phục vụ nhân dân và đóng góp cho sự phát triển của đất nước", "Tăng thu nhập cá nhân"],
+    correct: 2
+  },
+  {
+    q: "Một cán bộ lợi dụng chức vụ để ưu tiên người thân trong tuyển dụng. Theo tư tưởng Hồ Chí Minh, hành vi này vi phạm nghiêm trọng phẩm chất nào?",
+    options: ["Cần", "Kiệm", "Liêm", "Dũng"],
+    correct: 2
+  },
+  {
+    q: "Theo Hồ Chí Minh, điều gì là nguy cơ lớn nhất làm suy thoái đạo đức của người cán bộ?",
+    options: ["Thiếu bằng cấp", "Chủ nghĩa cá nhân", "Thiếu kinh nghiệm", "Thiếu ngoại ngữ"],
+    correct: 1
+  },
+  {
+    q: "Một sinh viên thường xuyên hứa hẹn tham gia công việc nhóm nhưng lại không thực hiện. Theo tư tưởng Hồ Chí Minh, điều này cho thấy hạn chế nào?",
+    options: ["Thiếu tính kỷ luật và tinh thần trách nhiệm", "Thiếu năng lực học tập", "Thiếu điều kiện tài chính", "Thiếu kỹ năng giao tiếp"],
+    correct: 0
+  },
+  {
+    q: "Theo tư tưởng Hồ Chí Minh, việc tự phê bình và phê bình có ý nghĩa chủ yếu gì?",
+    options: ["Tìm ra lỗi của người khác", "Nâng cao uy tín cá nhân", "Giúp cá nhân và tập thể tiến bộ, sửa chữa khuyết điểm", "Tăng khả năng cạnh tranh"],
+    correct: 2
+  },
+  {
+    q: "Một người chỉ nhiệt tình giúp đỡ khi có lợi ích cho bản thân. Theo Hồ Chí Minh, hạn chế lớn nhất trong cách ứng xử này là gì?",
+    options: ["Thiếu tinh thần vị tha và phục vụ cộng đồng", "Thiếu kiến thức xã hội", "Thiếu kinh nghiệm sống", "Thiếu khả năng lãnh đạo"],
+    correct: 0
+  },
+  {
+    q: "Theo tư tưởng Hồ Chí Minh, phẩm chất 'chính' yêu cầu điều gì?",
+    options: ["Sống và làm việc ngay thẳng, công tâm, đúng đắn", "Ưu tiên lợi ích gia đình", "Tập trung phát triển kinh tế cá nhân", "Luôn giữ quan điểm của mình"],
+    correct: 0
+  },
+  {
+    q: "Một cán bộ ngại tiếp xúc với người dân vì cho rằng ý kiến của họ không quan trọng. Theo Hồ Chí Minh, nhận thức này sai ở điểm nào?",
+    options: ["Đánh giá thấp vai trò của nhân dân trong sự nghiệp cách mạng", "Quá coi trọng pháp luật", "Đề cao tinh thần tự học", "Thiếu kiến thức kinh tế"],
+    correct: 0
+  },
+  {
+    q: "Theo tư tưởng Hồ Chí Minh, đạo đức cách mạng được thể hiện rõ nhất thông qua yếu tố nào?",
+    options: ["Lời nói", "Danh hiệu", "Hành động và việc làm cụ thể", "Trình độ học vấn"],
+    correct: 2
+  },
+  {
+    q: "Một người thường xuyên đổ lỗi cho hoàn cảnh thay vì tự nhìn nhận thiếu sót của bản thân. Theo Hồ Chí Minh, điều này cho thấy họ còn thiếu điều gì?",
+    options: ["Tinh thần tự phê bình và ý thức rèn luyện bản thân", "Khả năng thích nghi", "Năng lực chuyên môn", "Tinh thần quốc tế"],
+    correct: 0
+  },
+  [
+  {
+    q: "Một sinh viên cho rằng việc tham gia hoạt động cộng đồng chỉ nên thực hiện khi mang lại lợi ích trực tiếp cho bản thân. Theo tư tưởng Hồ Chí Minh, hạn chế lớn nhất của quan điểm này là gì?",
+    options: ["Thiếu kiến thức quản lý", "Đặt lợi ích cá nhân lên trên lợi ích tập thể và xã hội", "Chưa có kỹ năng giao tiếp", "Thiếu tinh thần sáng tạo"],
+    correct: 1
+  },
+  {
+    q: "Theo tư tưởng Hồ Chí Minh, điều gì quyết định giá trị đạo đức của một con người?",
+    options: ["Địa vị xã hội", "Tài sản sở hữu", "Mục đích và hành động phục vụ nhân dân", "Trình độ học vấn"],
+    correct: 2
+  },
+  {
+    q: "Một cán bộ luôn hứa hẹn nhiều nhưng ít khi thực hiện cam kết. Theo Hồ Chí Minh, điều này trái với yêu cầu nào của đạo đức cách mạng?",
+    options: ["Nói đi đôi với làm", "Cần kiệm", "Tinh thần quốc tế", "Học tập suốt đời"],
+    correct: 0
+  },
+  {
+    q: "Một người làm việc chăm chỉ nhưng thường xuyên lãng phí thời gian và nguồn lực chung. Theo tư tưởng Hồ Chí Minh, người này còn thiếu phẩm chất nào?",
+    options: ["Kiệm", "Liêm", "Chính", "Chí công vô tư"],
+    correct: 0
+  },
+  {
+    q: "Theo Hồ Chí Minh, vì sao người cán bộ cần gần gũi nhân dân?",
+    options: ["Để nâng cao danh tiếng cá nhân", "Để hiểu dân, học dân và phục vụ nhân dân tốt hơn", "Để dễ được thăng chức", "Để tăng thu nhập"],
+    correct: 1
+  },
+  {
+    q: "Một sinh viên thường xuyên sao chép bài tập của bạn bè vì cho rằng kết quả cuối cùng mới là quan trọng. Theo tư tưởng Hồ Chí Minh, hạn chế chính là gì?",
+    options: ["Thiếu trung thực và ý thức tự rèn luyện", "Thiếu kỹ năng nghiên cứu", "Thiếu khả năng làm việc nhóm", "Thiếu điều kiện học tập"],
+    correct: 0
+  },
+  {
+    q: "Theo tư tưởng Hồ Chí Minh, phẩm chất nào giúp con người vượt qua khó khăn, thử thách để hoàn thành nhiệm vụ?",
+    options: ["Dũng", "Kiệm", "Liêm", "Khiêm tốn"],
+    correct: 0
+  },
+  {
+    q: "Một cán bộ luôn ưu tiên lợi ích của cơ quan mình mà bỏ qua lợi ích chung của xã hội. Theo Hồ Chí Minh, đây là biểu hiện của điều gì?",
+    options: ["Tinh thần trách nhiệm", "Cục bộ, vị kỷ", "Tính sáng tạo", "Tinh thần dân chủ"],
+    correct: 1
+  },
+  {
+    q: "Theo tư tưởng Hồ Chí Minh, đạo đức có vai trò như thế nào đối với người cách mạng?",
+    options: ["Là yếu tố phụ trợ", "Là công cụ để đạt danh vọng", "Là gốc, là nền tảng của người cách mạng", "Chỉ cần thiết khi giữ chức vụ lãnh đạo"],
+    correct: 2
+  },
+  {
+    q: "Một người thường xuyên khoe khoang thành tích và xem thường đồng nghiệp. Theo Hồ Chí Minh, người này còn thiếu phẩm chất gì?",
+    options: ["Khiêm tốn", "Dũng cảm", "Tiết kiệm", "Kiên trì"],
+    correct: 0
+  },
+  {
+    q: "Theo Hồ Chí Minh, biểu hiện nào sau đây phù hợp với tinh thần chí công vô tư?",
+    options: ["Luôn bảo vệ người thân trong mọi trường hợp", "Đặt việc công lên trên lợi ích cá nhân", "Ưu tiên lợi ích cá nhân trước", "Chỉ giúp đỡ người quen"],
+    correct: 1
+  },
+  {
+    q: "Một cán bộ từ chối nhận trách nhiệm khi cơ quan xảy ra sai sót. Theo tư tưởng Hồ Chí Minh, hành vi này cho thấy điều gì?",
+    options: ["Thiếu tinh thần trách nhiệm", "Có tư duy quản lý tốt", "Biết bảo vệ bản thân", "Có năng lực chuyên môn cao"],
+    correct: 0
+  },
+  {
+    q: "Theo tư tưởng Hồ Chí Minh, việc học tập đạo đức cần được thực hiện như thế nào?",
+    options: ["Chỉ trong nhà trường", "Khi có yêu cầu của tổ chức", "Thường xuyên, suốt đời", "Chỉ khi còn trẻ"],
+    correct: 2
+  },
+  {
+    q: "Một người cho rằng giúp đỡ người khác là việc của những ai có điều kiện kinh tế tốt. Theo Hồ Chí Minh, nhận thức này chưa đúng vì sao?",
+    options: ["Đạo đức không phụ thuộc hoàn toàn vào điều kiện vật chất", "Người nghèo không nên giúp người khác", "Đạo đức chỉ là trách nhiệm của Nhà nước", "Giúp người khác phải có lợi ích vật chất"],
+    correct: 0
+  },
+  {
+    q: "Theo Hồ Chí Minh, biểu hiện nào dưới đây thể hiện đúng tinh thần đoàn kết?",
+    options: ["Áp đặt ý kiến cá nhân lên tập thể", "Tôn trọng, hợp tác và hướng tới mục tiêu chung", "Chỉ làm việc với người cùng quan điểm", "Tránh tranh luận trong mọi tình huống"],
+    correct: 1
+  },
+  {
+    q: "Một sinh viên chỉ học những môn có lợi cho nghề nghiệp tương lai và xem nhẹ giáo dục đạo đức. Theo tư tưởng Hồ Chí Minh, hạn chế lớn nhất là gì?",
+    options: ["Chưa phát triển toàn diện cả đức và tài", "Thiếu kỹ năng mềm", "Thiếu khả năng nghiên cứu", "Thiếu hiểu biết pháp luật"],
+    correct: 0
+  },
+  {
+    q: "Theo tư tưởng Hồ Chí Minh, nguyên nhân nào khiến việc rèn luyện đạo đức trở nên khó khăn?",
+    options: ["Sự tác động của chủ nghĩa cá nhân và những cám dỗ trong cuộc sống", "Thiếu giáo trình phù hợp", "Thiếu công nghệ hỗ trợ", "Thiếu các hoạt động giải trí"],
+    correct: 0
+  },
+  {
+    q: "Một cán bộ luôn lắng nghe ý kiến nhân dân trước khi đưa ra quyết định quan trọng. Theo Hồ Chí Minh, điều này thể hiện phẩm chất gì?",
+    options: ["Quan liêu", "Tôn trọng nhân dân và thực hành dân chủ", "Vị lợi cá nhân", "Thiếu quyết đoán"],
+    correct: 1
+  },
+  {
+    q: "Theo tư tưởng Hồ Chí Minh, điều gì giúp con người duy trì và phát triển phẩm chất đạo đức tốt đẹp?",
+    options: ["Sự giám sát của người khác", "Tự giác tu dưỡng và rèn luyện không ngừng", "Địa vị xã hội cao", "Khả năng hùng biện"],
+    correct: 1
+  },
+  {
+    q: "Một người thường xuyên tham gia các phong trào tập thể nhưng chỉ để được khen thưởng. Theo tư tưởng Hồ Chí Minh, hạn chế chủ yếu nằm ở đâu?",
+    options: ["Thiếu năng lực lãnh đạo", "Động cơ chưa trong sáng, còn nặng lợi ích cá nhân", "Thiếu kinh nghiệm xã hội", "Thiếu kiến thức chính trị"],
+    correct: 1
+  }
+]
+]
 
 ];
 
