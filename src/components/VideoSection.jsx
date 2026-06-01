@@ -48,9 +48,8 @@ const VideoSection = () => {
             <video 
               controls 
               className="w-full h-full object-cover"
-              poster="/image/video-poster.jpg"
             >
-              <source src="/image/daoducHCM2.mp4" type="video/mp4" />
+              <source src="/image/daoducHCM1.mp4" type="video/mp4" />
               Trình duyệt của bạn không hỗ trợ video HTML5.
             </video>
           </div>

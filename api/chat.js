@@ -4,7 +4,7 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method Not Allowed' })
   }
 
-  const target = process.env.CHAT_API_TARGET || 'http://109.237.69.169/api/chat'
+  const target = process.env.CHAT_API_TARGET || 'https://macaroni-hunting-mutation.ngrok-free.dev/api/chat'
   const basicAuth = process.env.CHAT_BASIC_AUTH
 
   if (!basicAuth) {

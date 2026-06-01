@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://109.237.69.169',
+        target: 'https://macaroni-hunting-mutation.ngrok-free.dev',
         changeOrigin: true,
         secure: false,
         headers: {
