@@ -3,8 +3,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, Trophy, Skull, Zap, Timer, ShieldAlert, Star, RotateCcw, Award } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import QUESTIONS from './tugofwar/questions';
-import { playStunSound, playComboSound, playWinSound, playLoseSound } from './tugofwar/soundEffects';
-import { MAX_QUESTIONS_PER_GAME, resolveGamePhaseAfterRound } from './tugofwar/gameRules';
+import { playStunSound, playWinSound } from './tugofwar/soundEffects';
+import { MAX_QUESTIONS_PER_GAME, resolveGamePhaseAfterRound, ROPE_LIMIT } from './tugofwar/gameRules';
 
 /* ───── helpers ───── */
 const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
@@ -17,6 +17,7 @@ const pick = (pool, used) => {
 };
 
 const TIMER_DURATION = 20;
+const PULL_PER_CORRECT = ROPE_LIMIT / 3; // make 3 correct answers equal a full win
 
 /* ───── sub-components ───── */
 const PlayerCharacter = ({ team, index, isStunned, isPulling, combo }) => {
@@ -136,10 +137,21 @@ const TeamPullers = ({ team, isStunned, combo, isPulling, gamePhase, ropePositio
 };
 
 const RopeVisual = ({ ropePosition, leftStunned, rightStunned, leftCombo, rightCombo, gamePhase }) => {
-  const pct = ((ropePosition + 100) / 200) * 100;
+  const pct = ((ropePosition + ROPE_LIMIT) / (ROPE_LIMIT * 2)) * 100;
 
   const leftPulling = gamePhase === 'playing' && !leftStunned;
   const rightPulling = gamePhase === 'playing' && !rightStunned;
+
+  // Quantize flag position into 3 steps per side so it snaps to -3..3 (7 positions)
+  const step = ROPE_LIMIT / 3;
+  const quantized = Math.round(ropePosition / step) * step;
+  const tickPositions = Array.from({ length: 7 }, (_, i) => (i - 3) * step);
+
+  // Helper: convert rope value (-ROPE_LIMIT..ROPE_LIMIT) to percent across rope area (4%..96%)
+  const valueToPercent = (val) => {
+    const usable = 92; // percent (100 - 4% left - 4% right)
+    return 4 + ((val + ROPE_LIMIT) / (ROPE_LIMIT * 2)) * usable;
+  };
 
   return (
     <div className="relative w-full h-24 flex items-center select-none overflow-visible">
@@ -168,13 +180,14 @@ const RopeVisual = ({ ropePosition, leftStunned, rightStunned, leftCombo, rightC
 
       {/* marker / flag */}
       <motion.div
-        className="absolute bottom-[10px] left-1/2"
+        className="absolute bottom-[10px]"
+        style={{ transform: 'translateX(-50%)' }}
         animate={{
-          x: `calc(-50% + ${ropePosition * 0.8}px)`,
+          left: `${valueToPercent(quantized)}%`,
           y: gamePhase === 'playing' && (leftPulling || rightPulling) ? [-1, 1, -1] : 0
         }}
         transition={{
-          x: { type: 'spring', stiffness: 200, damping: 25 },
+          left: { type: 'spring', stiffness: 200, damping: 25 },
           y: { repeat: Infinity, duration: 0.1, ease: "linear" }
         }}
       >
@@ -249,8 +262,20 @@ const TugOfWarGame = () => {
 
   const timerRef = useRef(null);
 
-  const finishRound = (nextRopePosition) => {
+  const finishRound = (nextRopePosition, nextScores = { left: leftScore, right: rightScore }) => {
     const nextQuestionsAsked = questionsAsked + 1;
+
+    // Immediate win if score difference reaches 3
+    if (Math.abs((nextScores.left || 0) - (nextScores.right || 0)) >= 3) {
+      const winner = (nextScores.left || 0) > (nextScores.right || 0) ? 'win_red' : 'win_blue';
+      setQuestionsAsked(nextQuestionsAsked);
+      setTimeout(() => {
+        setGamePhase(winner);
+        playWinSound();
+      }, 800);
+      return;
+    }
+
     const nextPhase = resolveGamePhaseAfterRound({
       nextQuestionsAsked,
       ropePosition: nextRopePosition,
@@ -264,7 +289,7 @@ const TugOfWarGame = () => {
         if (nextPhase !== 'draw') playWinSound();
       };
 
-      if (Math.abs(nextRopePosition) >= 100) {
+      if (Math.abs(nextRopePosition) >= ROPE_LIMIT) {
         finishGame();
       } else {
         setTimeout(finishGame, 1500);
@@ -376,21 +401,19 @@ const TugOfWarGame = () => {
       if (leftStunned) return;
       if (isCorrect) {
         // Red Team got it right!
-        const newCombo = leftCombo + 1;
-        const pull = 12 + newCombo * 2;
-        setLeftCombo(newCombo);
+        const pull = PULL_PER_CORRECT;
         setRightCombo(0);
         setLeftFeedback('correct');
         setRoundWinner('left');
         setAnswered(true);
 
+        const nextLeftScore = leftScore + 1;
         setLeftScore(s => s + 1);
 
         const nextRopePosition = clamp(ropePosition - pull, -100, 100);
         setRopePosition(nextRopePosition);
 
-        playComboSound(newCombo);
-        finishRound(nextRopePosition);
+        finishRound(nextRopePosition, { left: nextLeftScore, right: rightScore });
       } else {
         // Red Team got it wrong!
         setLeftCombo(0);
@@ -402,28 +425,26 @@ const TugOfWarGame = () => {
         const nextRopePosition = clamp(ropePosition + 10, -100, 100);
         setRopePosition(nextRopePosition);
         playStunSound();
-        finishRound(nextRopePosition);
+        finishRound(nextRopePosition, { left: leftScore, right: rightScore });
       }
     } else {
       // Blue Team (Right)
       if (rightStunned) return;
       if (isCorrect) {
         // Blue Team got it right!
-        const newCombo = rightCombo + 1;
-        const pull = 12 + newCombo * 2;
-        setRightCombo(newCombo);
+        const pull = PULL_PER_CORRECT;
         setLeftCombo(0);
         setRightFeedback('correct');
         setRoundWinner('right');
         setAnswered(true);
 
+        const nextRightScore = rightScore + 1;
         setRightScore(s => s + 1);
 
         const nextRopePosition = clamp(ropePosition + pull, -100, 100);
         setRopePosition(nextRopePosition);
 
-        playComboSound(newCombo);
-        finishRound(nextRopePosition);
+        finishRound(nextRopePosition, { left: leftScore, right: nextRightScore });
       } else {
         // Blue Team got it wrong!
         setRightCombo(0);
@@ -435,7 +456,7 @@ const TugOfWarGame = () => {
         const nextRopePosition = clamp(ropePosition - 10, -100, 100);
         setRopePosition(nextRopePosition);
         playStunSound();
-        finishRound(nextRopePosition);
+        finishRound(nextRopePosition, { left: leftScore, right: rightScore });
       }
     }
   };
@@ -446,7 +467,7 @@ const TugOfWarGame = () => {
     setAnswered(true);
     setRoundWinner('timeout');
     playStunSound();
-    finishRound(ropePosition);
+    finishRound(ropePosition, { left: leftScore, right: rightScore });
   };
 
   /* ── keyboard listener ── */
@@ -687,20 +708,7 @@ const TugOfWarGame = () => {
           gamePhase={gamePhase}
         />
 
-        {/* Dynamic Force Bar */}
-        <div className="flex items-center gap-2 px-1">
-          <span className="text-[9px] text-soviet-red font-black uppercase tracking-wider shrink-0 select-none">Đỏ</span>
-          <div className="flex-1 h-1.5 bg-zinc-150 rounded-full overflow-hidden relative border border-zinc-205 shadow-inner">
-            <div className="absolute top-0 bottom-0 left-1/2 w-0.5 bg-zinc-400 z-10" />
-            <motion.div
-              className="h-full rounded-full"
-              animate={{ width: `${clamp(50 - ropePosition / 2, 0, 100)}%` }}
-              style={{ background: 'linear-gradient(90deg, #dc2626, #2563eb)' }}
-              transition={{ type: 'spring', stiffness: 200, damping: 25 }}
-            />
-          </div>
-          <span className="text-[9px] text-blue-600 font-black uppercase tracking-wider shrink-0 select-none">Xanh</span>
-        </div>
+        {/* Dynamic Force Bar removed - rope visual renders progress now */}
       </div>
 
       {/* QUESTION AREA */}
