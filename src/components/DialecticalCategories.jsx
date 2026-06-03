@@ -7,7 +7,7 @@ const items = [
     icon: Users2,
     title: 'Nói đi đôi với làm, phải nêu gương về đạo đức',
     id: 'theory-revolution',
-    desc: 'Lời nói phải đi đôi với việc làm.Nói mà không làm sẽ làm mất lòng tin của nhân dân.Người cán bộ phải làm gương cho quần chúng.',
+    desc: 'Lời nói phải đi đôi với việc làm. Nói mà không làm sẽ làm mất lòng tin của nhân dân. Người cán bộ phải làm gương cho quần chúng.',
     imageSrc: '/image/Picture18.jpg',
     imageAlt: 'Minh hoa noi di doi voi lam'
   },
@@ -23,7 +23,7 @@ const items = [
     icon: ShieldCheck,
     title: 'Phải tu dưỡng đạo đức suốt đời',
     id: 'theory-revolution',
-    desc: 'Thường xuyên tự phê bình và phê bình.Không ngừng học tập và rèn luyện.Kiên trì sửa chữa khuyết điểm.Giữ gìn phẩm chất đạo đức trong mọi hoàn cảnh.',
+    desc: 'Thường xuyên tự phê bình và phê bình. Không ngừng học tập và rèn luyện. Kiên trì sửa chữa khuyết điểm. Giữ gìn phẩm chất đạo đức trong mọi hoàn cảnh.',
     imageSrc: '/image/Picture20.jpg',
     imageAlt: 'Minh hoa tu duong dao duc'
   },

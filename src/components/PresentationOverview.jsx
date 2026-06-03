@@ -1,7 +1,16 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
-import { Users, ListOrdered, BookOpen, Cpu, MessageSquare, Trophy, Book, Palette } from 'lucide-react';
+import React from "react";
+import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
+import {
+  Users,
+  ListOrdered,
+  BookOpen,
+  Cpu,
+  MessageSquare,
+  Trophy,
+  Book,
+  Palette,
+} from "lucide-react";
 
 const PresentationOverview = () => {
   const members = [
@@ -13,22 +22,56 @@ const PresentationOverview = () => {
   ];
 
   const outline = [
-    { title: "Đạo đức là gì?", desc: "Đạo đức là gốc của người cách mạng."},
-    { title: "Quan điểm của Hồ Chí Minh về chuẩn mực đạo đức", desc: "Hồ Chí Minh kế thừa tư tưởng “trung quân ái quốc” của Nho giáo nhưng phát triển lên thành “trung với nước”"},
-    { title: "nguyên tắc", desc: "xây dựng đạo đức cách mạng."},
-    { title: "Ý nghĩa và tóm tắt", desc: "Trong giai đoạn hiện nay, tư tưởng Hồ Chí Minh về đạo đức vẫn giữ nguyên giá trị và có ý nghĩa rất lớn đối với thế hệ trẻ, đặc biệt là sinh viên."},
+    { title: "Đạo đức là gì?" },
+    {
+      title: "Quan điểm của Hồ Chí Minh về chuẩn mực đạo đức",
+    },
+    {
+      title: "Nguyên tắc xây dựng đạo đức cách mạng.",
+    },
+    {
+      title: "Ý nghĩa và tóm tắt",
+    },
   ];
 
   const tools = [
-    { name: "Nội dung", icon: <Book className="w-6 h-6" />, color: "bg-blue-500", desc: "Tổng hợp theo đúng dàn ý giai cấp và dân tộc" },
-    { name: "Diễn giải", icon: <MessageSquare className="w-6 h-6" />, color: "bg-emerald-500", desc: "Biến ý chính thành nội dung dễ học, dễ nhớ" },
-    { name: "Hiệu Ứng", icon: <Palette className="w-6 h-6" />, color: "bg-purple-500", desc: "Hiệu Ứng lá đổ ở nền Background" },
-    { name: "Game", icon: <Trophy className="w-6 h-6" />, color: "bg-sky-500", desc: "Chỉnh sửa game trong web" },
-    { name: "Sơ đồ tư duy", icon: <Cpu className="w-6 h-6" />, color: "bg-orange-500", desc: "Tạo sơ đồ tư duy và mạch học tập liên kết" },
+    {
+      name: "Nội dung",
+      icon: <Book className="w-6 h-6" />,
+      color: "bg-blue-500",
+      desc: "Tổng hợp theo đúng dàn ý giai cấp và dân tộc",
+    },
+    {
+      name: "Diễn giải",
+      icon: <MessageSquare className="w-6 h-6" />,
+      color: "bg-emerald-500",
+      desc: "Biến ý chính thành nội dung dễ học, dễ nhớ",
+    },
+    {
+      name: "Hiệu Ứng",
+      icon: <Palette className="w-6 h-6" />,
+      color: "bg-purple-500",
+      desc: "Hiệu Ứng lá đổ ở nền Background",
+    },
+    {
+      name: "Game",
+      icon: <Trophy className="w-6 h-6" />,
+      color: "bg-sky-500",
+      desc: "Chỉnh sửa game trong web",
+    },
+    {
+      name: "Sơ đồ tư duy",
+      icon: <Cpu className="w-6 h-6" />,
+      color: "bg-orange-500",
+      desc: "Tạo sơ đồ tư duy và mạch học tập liên kết",
+    },
   ];
 
   return (
-    <section id="overview" className="min-h-screen py-32 px-6 bg-zinc-50 text-zinc-800 relative overflow-hidden">
+    <section
+      id="overview"
+      className="min-h-screen py-32 px-6 bg-zinc-50 text-zinc-800 relative overflow-hidden"
+    >
       {/* Background patterns */}
       <div className="absolute inset-0 opacity-40">
         <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_center,_rgba(220,38,38,0.05)_0%,_transparent_70%)]" />
@@ -47,7 +90,10 @@ const PresentationOverview = () => {
             Tổng quan <span className="text-zinc-800">Bài học</span>
           </h2>
           <p className="text-xl font-medium text-zinc-500 mb-8">
-            Chủ đề: <span className="text-zinc-900 font-bold underline decoration-soviet-red underline-offset-4">Tư Tưởng Hồ Chí Minh về đạo đức</span>
+            Chủ đề:{" "}
+            <span className="text-zinc-900 font-bold underline decoration-soviet-red underline-offset-4">
+              Tư Tưởng Hồ Chí Minh về đạo đức
+            </span>
           </p>
           <div className="w-24 h-2 bg-soviet-red mx-auto mb-8" />
         </motion.div>
@@ -59,17 +105,21 @@ const PresentationOverview = () => {
             animate={{ opacity: 1, x: 0 }}
             className="space-y-8"
           >
-              <h3 className="text-2xl font-bold flex items-center gap-4 uppercase tracking-widest text-soviet-red">
+            <h3 className="text-2xl font-bold flex items-center gap-4 uppercase tracking-widest text-soviet-red">
               <Users className="w-8 h-8" /> Thành viên thực hiện
             </h3>
             <div className="space-y-4">
               {members.map((member) => (
-                <div 
+                <div
                   key={member.id}
                   className="p-6 bg-white border-2 border-zinc-100 border-l-soviet-red hover:border-soviet-red transition-all flex justify-between items-center group shadow-sm hover:shadow-md"
                 >
-                  <div className="text-xl font-bold text-zinc-900 group-hover:text-soviet-red transition-colors">{member.name}</div>
-                  <div className="text-soviet-red font-mono font-bold tracking-tighter text-lg">{member.id}</div>
+                  <div className="text-xl font-bold text-zinc-900 group-hover:text-soviet-red transition-colors">
+                    {member.name}
+                  </div>
+                  <div className="text-soviet-red font-mono font-bold tracking-tighter text-lg">
+                    {member.id}
+                  </div>
                 </div>
               ))}
             </div>
@@ -81,7 +131,7 @@ const PresentationOverview = () => {
             animate={{ opacity: 1, x: 0 }}
             className="space-y-8"
           >
-              <h3 className="text-2xl font-bold flex items-center gap-4 uppercase tracking-widest text-soviet-red">
+            <h3 className="text-2xl font-bold flex items-center gap-4 uppercase tracking-widest text-soviet-red">
               <ListOrdered className="w-8 h-8" /> Nội dung bài học
             </h3>
             <div className="space-y-6">
@@ -102,9 +152,10 @@ const PresentationOverview = () => {
                         {item.title}
                       </Link>
                     ) : (
-                      <h4 className="text-xl font-bold mb-2 group-hover:text-soviet-orange transition-colors uppercase text-zinc-800">{item.title}</h4>
+                      <h4 className="text-xl font-bold mb-2 group-hover:text-soviet-orange transition-colors uppercase text-zinc-800">
+                        {item.title}
+                      </h4>
                     )}
-                    <p className="text-zinc-500 leading-relaxed">{item.desc}</p>
                   </div>
                 </div>
               ))}
@@ -121,19 +172,28 @@ const PresentationOverview = () => {
           <div className="absolute top-0 right-0 p-8 opacity-5">
             <Cpu className="w-32 h-32" />
           </div>
-          
+
           <h3 className="text-2xl font-bold text-center uppercase tracking-widest text-zinc-400 mb-12">
             AI usage
           </h3>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
             {tools.map((tool) => (
-              <div key={tool.name} className="flex flex-col items-center group text-center">
-                <div className={`w-16 h-16 rounded-2xl ${tool.color} text-white flex items-center justify-center mb-4 shadow-lg group-hover:scale-110 transition-transform`}>
+              <div
+                key={tool.name}
+                className="flex flex-col items-center group text-center"
+              >
+                <div
+                  className={`w-16 h-16 rounded-2xl ${tool.color} text-white flex items-center justify-center mb-4 shadow-lg group-hover:scale-110 transition-transform`}
+                >
                   {tool.icon}
                 </div>
-                <div className="font-bold text-zinc-800 uppercase text-xs tracking-widest mb-2">{tool.name}</div>
-                <p className="text-[10px] text-zinc-500 font-medium leading-tight px-2">{tool.desc}</p>
+                <div className="font-bold text-zinc-800 uppercase text-xs tracking-widest mb-2">
+                  {tool.name}
+                </div>
+                <p className="text-[10px] text-zinc-500 font-medium leading-tight px-2">
+                  {tool.desc}
+                </p>
               </div>
             ))}
           </div>

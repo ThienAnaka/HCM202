@@ -23,7 +23,7 @@ const theories = [
     title: "Sức Mạnh Tinh Thần To Lớn",
     id: 'theory-class',
     icon: <Factory className="w-8 h-8 text-soviet-red" />,
-    description: "Nhờ có đạo đức cách mạng mà cán bộ, chiến sĩ và nhân dân ta đã vượt qua nhiều thử thách trong chiến tranh.Đạo đức tạo nên tinh thần đoàn kết, lòng yêu nước và ý chí đấu tranh.",
+    description: "Nhờ có đạo đức cách mạng mà cán bộ, chiến sĩ và nhân dân ta đã vượt qua nhiều thử thách trong chiến tranh. Đạo đức tạo nên tinh thần đoàn kết, lòng yêu nước và ý chí đấu tranh.",
     imageSrc: "/image/Picture10.jpg",
     imageAlt: "Minh hoa doan ket dan toc"
   },
@@ -31,7 +31,7 @@ const theories = [
     title: "Nhân Tố Quyết Định Sự Thành Bại",
     id: 'theory-class',
     icon: <Swords className="w-8 h-8 text-soviet-red" />,
-    description: "Hồ Chí Minh khẳng định rằng một Đảng cách mạng muốn lãnh đạo được nhân dân thì phải thật sự trong sạch và có đạo đức.Do đó, việc xây dựng đạo đức cách mạng luôn gắn liền với công tác xây dựng Đảng và xây dựng hệ thống chính trị trong sạch, vững mạnh.",
+    description: "Hồ Chí Minh khẳng định rằng một Đảng cách mạng muốn lãnh đạo được nhân dân thì phải thật sự trong sạch và có đạo đức. Do đó, việc xây dựng đạo đức cách mạng luôn gắn liền với công tác xây dựng Đảng và xây dựng hệ thống chính trị trong sạch, vững mạnh.",
     imageSrc: "/image/Picture9.jpg",
     imageAlt: "Minh hoa xay dung Dang"
   }

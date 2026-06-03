@@ -5,11 +5,11 @@ import { CircleCheck } from 'lucide-react';
 const meanings = [
   {
     title: "Rèn luyện lý tưởng sống đúng đắn.",
-    desc: "Có trách nhiệm với gia đình, xã hội và đất nước.Trung thực trong học tập và thi cử.",
+    desc: "Có trách nhiệm với gia đình, xã hội và đất nước. Trung thực trong học tập và thi cử.",
   },
   {
     title: "Có tinh thần đoàn kết và giúp đỡ người khác.",
-    desc: "Không ngừng học tập, nâng cao tri thức và đạo đức.Chống lối sống thực dụng, ích kỷ và các tệ nạn xã hội.",
+    desc: "Không ngừng học tập, nâng cao tri thức và đạo đức. Chống lối sống thực dụng, ích kỷ và các tệ nạn xã hội.",
   },
   {
     title: "Học tập và làm theo tư tưởng, đạo đức Hồ Chí Minh",

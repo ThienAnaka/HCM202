@@ -7,7 +7,7 @@ const connections = [
     icon: MapPinned,
     title: "Trung với nước",
     id: 'theory-nation',
-    desc: "Tuyệt đối trung thành với Tổ quốc.Kiên định mục tiêu độc lập dân tộc và chủ nghĩa xã hội.Đặt lợi ích của đất nước lên trên hết.Sẵn sàng hy sinh vì sự nghiệp bảo vệ và xây dựng đất nước.",
+    desc: "Tuyệt đối trung thành với Tổ quốc. Kiên định mục tiêu độc lập dân tộc và chủ nghĩa xã hội. Đặt lợi ích của đất nước lên trên hết. Sẵn sàng hy sinh vì sự nghiệp bảo vệ và xây dựng đất nước.",
     imageSrc: "/image/Picture15.jpg",
     imageAlt: "Minh hoa trung voi nuoc"
   },
@@ -15,7 +15,7 @@ const connections = [
     icon: Languages,
     title: "Hiếu với dân",
     id: 'theory-nation',
-    desc: "Nhân dân là chủ của đất nước.Mọi quyền lực đều thuộc về nhân dân.Cán bộ phải kính trọng, gần gũi và phục vụ nhân dân.Việc gì có lợi cho dân phải hết sức làm, việc gì có hại cho dân phải hết sức tránh.",
+    desc: "Nhân dân là chủ của đất nước. Mọi quyền lực đều thuộc về nhân dân. Cán bộ phải kính trọng, gần gũi và phục vụ nhân dân. Việc gì có lợi cho dân phải hết sức làm, việc gì có hại cho dân phải hết sức tránh.",
     imageSrc: "/image/Picture13.jpg",
     imageAlt: "Minh hoa hieu voi dan"
   },
@@ -23,7 +23,7 @@ const connections = [
     icon: Languages,
     title: "Cần, kiệm, liêm, chính, chí công vô tư",
     id: 'theory-nation',
-    desc: "Đây là những phẩm chất đạo đức cơ bản của người cán bộ cách mạng.Theo Hồ Chí Minh, đây là phẩm chất cao nhất của đạo đức cách mạng.",
+    desc: "Đây là những phẩm chất đạo đức cơ bản của người cán bộ cách mạng. Theo Hồ Chí Minh, đây là phẩm chất cao nhất của đạo đức cách mạng.",
     imageSrc: "/image/Picture11.jpg",
     imageAlt: "Minh hoa can kiem liem chinh"
   },
@@ -31,7 +31,7 @@ const connections = [
     icon: PartyPopper,
     title: "Thương yêu con người, sống có tình nghĩa",
     id: 'theory-nation',
-    desc: "Yêu thương nhân dân lao động.Quan tâm đến người nghèo khổ, bị áp bức.Khoan dung với con người.Giúp đỡ nhau cùng tiến bộ.Đoàn kết, giúp đỡ đồng chí và đồng bào.",
+    desc: "Yêu thương nhân dân lao động. Quan tâm đến người nghèo khổ, bị áp bức. Khoan dung với con người. Giúp đỡ nhau cùng tiến bộ. Đoàn kết, giúp đỡ đồng chí và đồng bào.",
     imageSrc: "/image/Picture17.jpg",
     imageAlt: "Minh hoa thuong yeu con nguoi"
   },
@@ -39,7 +39,7 @@ const connections = [
     icon: PartyPopper,
     title: "Có tinh thần quốc tế trong sáng",
     id: 'theory-nation',
-    desc: "Tinh thần quốc tế trong sáng thể hiện ở đoàn kết với nhân dân lao động và các dân tộc bị áp bức trên thế giới.Tôn trọng độc lập, chủ quyền của các quốc gia.Hợp tác hữu nghị vì hòa bình và tiến bộ xã hội.",
+    desc: "Tinh thần quốc tế trong sáng thể hiện ở đoàn kết với nhân dân lao động và các dân tộc bị áp bức trên thế giới. Tôn trọng độc lập, chủ quyền của các quốc gia. Hợp tác hữu nghị vì hòa bình và tiến bộ xã hội.",
     imageSrc: "/image/Picture12.jpg",
     imageAlt: "Minh hoa tinh than quoc te"
   },
@@ -47,7 +47,7 @@ const connections = [
     icon: PartyPopper,
     title: "Vai Trò",
     id: 'theory-nation',
-    desc: "Hết lòng chăm lo đời sống nhân dân.Tôn trọng quyền làm chủ của nhân dân.Lắng nghe ý kiến của nhân dân.Chống quan liêu, hách dịch, xa dân.",
+    desc: "Hết lòng chăm lo đời sống nhân dân. Tôn trọng quyền làm chủ của nhân dân. Lắng nghe ý kiến của nhân dân. Chống quan liêu, hách dịch, xa dân.",
     imageSrc: "/image/Picture16.jpg",
     imageAlt: "Minh hoa vai tro"
   },
