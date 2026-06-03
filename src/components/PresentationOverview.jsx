@@ -16,7 +16,6 @@ const PresentationOverview = () => {
     { title: "Đạo đức là gì?", desc: "Đạo đức là gốc của người cách mạng."},
     { title: "Quan điểm của Hồ Chí Minh về chuẩn mực đạo đức", desc: "Hồ Chí Minh kế thừa tư tưởng “trung quân ái quốc” của Nho giáo nhưng phát triển lên thành “trung với nước”"},
     { title: "nguyên tắc", desc: "xây dựng đạo đức cách mạng."},
-    { title: "Xây dựng đạo đức cách mạng", desc: "Giai cấp và dân tộc vừa gắn bó chặt chẽ, vừa có những thời điểm mâu thuẫn tùy theo điều kiện lịch sử cụ thể."},
     { title: "Ý nghĩa và tóm tắt", desc: "Trong giai đoạn hiện nay, tư tưởng Hồ Chí Minh về đạo đức vẫn giữ nguyên giá trị và có ý nghĩa rất lớn đối với thế hệ trẻ, đặc biệt là sinh viên."},
   ];
 
