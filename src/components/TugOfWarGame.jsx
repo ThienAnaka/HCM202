@@ -179,23 +179,27 @@ const RopeVisual = ({ ropePosition, leftStunned, rightStunned, leftCombo, rightC
       />
 
       {/* marker / flag */}
-      <motion.div
+      <div
         className="absolute bottom-[10px]"
-        style={{ transform: 'translateX(-50%)' }}
-        animate={{
+        style={{
           left: `${valueToPercent(quantized)}%`,
-          y: gamePhase === 'playing' && (leftPulling || rightPulling) ? [-1, 1, -1] : 0
-        }}
-        transition={{
-          left: { type: 'spring', stiffness: 200, damping: 25 },
-          y: { repeat: Infinity, duration: 0.1, ease: "linear" }
+          transform: 'translateX(-50%)'
         }}
       >
+        <motion.div
+          animate={{
+            y: gamePhase === 'playing' && (leftPulling || rightPulling) ? [-1, 1, -1] : 0
+          }}
+          transition={{
+            y: { repeat: Infinity, duration: 0.1, ease: "linear" }
+          }}
+        >
         <div className="flex flex-col items-center">
-          <div className="text-xl">🚩</div>
+          <div className="w-6 text-center text-xl leading-none translate-x-[1px]">🚩</div>
           <div className="w-4 h-4 rounded-full bg-white border-2 border-yellow-400 shadow-[0_0_10px_rgba(250,204,21,0.6)] animate-pulse" />
         </div>
-      </motion.div>
+        </motion.div>
+      </div>
 
       {/* dynamic team sprites */}
       <TeamPullers team="left" isStunned={leftStunned} combo={leftCombo} isPulling={leftPulling} gamePhase={gamePhase} ropePosition={ropePosition} />
@@ -273,6 +277,19 @@ const TugOfWarGame = () => {
         setGamePhase(winner);
         playWinSound();
       }, 800);
+      return;
+    }
+
+    if (nextQuestionsAsked >= MAX_QUESTIONS_PER_GAME) {
+      const left = nextScores.left || 0;
+      const right = nextScores.right || 0;
+      const nextPhase = left > right ? 'win_red' : right > left ? 'win_blue' : 'draw';
+
+      setQuestionsAsked(nextQuestionsAsked);
+      setTimeout(() => {
+        setGamePhase(nextPhase);
+        if (nextPhase !== 'draw') playWinSound();
+      }, 1500);
       return;
     }
 
@@ -573,7 +590,7 @@ const TugOfWarGame = () => {
             Hai đội hòa nhau!
           </h2>
           <p className="text-zinc-600 mb-6 text-sm font-medium">
-            Sau {MAX_QUESTIONS_PER_GAME} câu, dây vẫn ở chính giữa nên chưa đội nào kéo lệch hơn.
+            Sau {MAX_QUESTIONS_PER_GAME} câu, hai đội bằng điểm nên trận đấu kết thúc với kết quả hòa.
           </p>
 
           <div className="grid grid-cols-2 gap-4 my-6">
