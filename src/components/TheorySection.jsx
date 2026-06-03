@@ -61,7 +61,7 @@ const TheorySection = () => {
             <div className="text-center md:text-left">
               <h2 id="theory-class" className="text-3xl md:text-5xl font-bold text-soviet-red mb-6 tracking-tight italic">Đạo đức là gốc của người cách mạng</h2>
               <p className="text-zinc-600 max-w-2xl md:max-w-none text-lg leading-relaxed">
-                Đạo đức là nền tảng và sức mạnh nội sinh giúp người cách mạng vượt qua mọi khó khăn, thử thách.và là yếu tố quyết định sự thành công của cách mạng
+                “Cũng như sông có nguồn mới có nước, cây có gốc mới nở ngành xanh lá, người cách mạng phải có đạo đức, không có đạo đức thì dù tài giỏi mấy cũng không lãnh đạo được nhân dân.” - Hồ Chí Minh
               </p>
             </div>
             <div className="w-full">
