@@ -9,12 +9,8 @@ import { MAX_QUESTIONS_PER_GAME, resolveGamePhaseAfterRound, ROPE_LIMIT } from '
 /* ───── helpers ───── */
 const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
 const shuffle = (a) => [...a].sort(() => Math.random() - 0.5);
-const pick = (pool, used) => {
-  const available = pool.filter((_, i) => !used.has(i));
-  if (available.length === 0) return { item: pool[Math.floor(Math.random() * pool.length)], idx: -1 };
-  const idx = pool.indexOf(available[Math.floor(Math.random() * available.length)]);
-  return { item: pool[idx], idx };
-};
+const QUESTION_BANK = QUESTIONS.flatMap((item) => (Array.isArray(item) ? item : [item])).filter(Boolean);
+const createQuestionDeck = () => shuffle(QUESTION_BANK);
 
 const TIMER_DURATION = 20;
 const PULL_PER_CORRECT = ROPE_LIMIT / 3; // make 3 correct answers equal a full win
@@ -260,7 +256,7 @@ const TugOfWarGame = () => {
   const [currentQuestion, setCurrentQuestion] = useState(null);
   const [shuffledOptions, setShuffledOptions] = useState([]);
   const [correctShuffledIdx, setCorrectShuffledIdx] = useState(0);
-  const [usedQuestions, setUsedQuestions] = useState(new Set());
+  const questionDeckRef = useRef([]);
   const [answered, setAnswered] = useState(false);
   const [roundWinner, setRoundWinner] = useState(null); // 'left' | 'right' | 'timeout' | null
 
@@ -319,8 +315,11 @@ const TugOfWarGame = () => {
 
   /* ── pick next question ── */
   const nextQuestion = useCallback(() => {
-    const { item, idx } = pick(QUESTIONS, usedQuestions);
-    if (idx >= 0) setUsedQuestions(prev => new Set(prev).add(idx));
+    if (questionDeckRef.current.length === 0) {
+      questionDeckRef.current = createQuestionDeck();
+    }
+
+    const item = questionDeckRef.current.shift();
     setCurrentQuestion(item);
 
     const indices = item.options.map((_, i) => i);
@@ -333,7 +332,7 @@ const TugOfWarGame = () => {
     setLeftFeedback(null);
     setRightFeedback(null);
     setRoundWinner(null);
-  }, [usedQuestions]);
+  }, []);
 
   /* ── start game ── */
   const startGame = () => {
@@ -347,7 +346,6 @@ const TugOfWarGame = () => {
     setRightStunned(false);
     setLeftStunTimer(0);
     setRightStunTimer(0);
-    setUsedQuestions(new Set());
     setCurrentQuestion(null);
     setShuffledOptions([]);
     setCorrectShuffledIdx(0);
@@ -436,13 +434,10 @@ const TugOfWarGame = () => {
         setLeftCombo(0);
         setLeftFeedback('wrong');
         setRoundWinner('left_wrong');
-        setAnswered(true);
         setLeftStunned(true);
         setLeftStunTimer(3);
-        const nextRopePosition = clamp(ropePosition + 10, -100, 100);
-        setRopePosition(nextRopePosition);
         playStunSound();
-        finishRound(nextRopePosition, { left: leftScore, right: rightScore });
+        // keep question active until correct or timeout
       }
     } else {
       // Blue Team (Right)
@@ -467,13 +462,10 @@ const TugOfWarGame = () => {
         setRightCombo(0);
         setRightFeedback('wrong');
         setRoundWinner('right_wrong');
-        setAnswered(true);
         setRightStunned(true);
         setRightStunTimer(3);
-        const nextRopePosition = clamp(ropePosition - 10, -100, 100);
-        setRopePosition(nextRopePosition);
         playStunSound();
-        finishRound(nextRopePosition, { left: leftScore, right: rightScore });
+        // keep question active until correct or timeout
       }
     }
   };
