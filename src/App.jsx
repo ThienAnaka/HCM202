@@ -8,7 +8,6 @@ import TheorySection from './components/TheorySection'
 import TypesOfConnections from './components/TypesOfConnections'
 import DialecticalCategories from './components/DialecticalCategories'
 import MethodologicalMeaning from './components/MethodologicalMeaning'
-import MindMap from './components/MindMap'
 import Footer from './components/Footer'
 import FallingFlowers from './components/FallingFlowers'
 import FloatingChatWidget from './components/FloatingChatWidget'
@@ -36,9 +35,6 @@ const HomePage = () => (
       <MethodologicalMeaning />
     </div>
     
-    <div id="mindmap">
-      <MindMap />
-    </div>
   </>
 )
 
